@@ -35,6 +35,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.android)
             implementation(libs.android.driver)
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.androidx.compose.material3)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -90,6 +93,9 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
+}
+dependencies {
+    implementation(libs.androidx.material3.android)
 }
 
 sqldelight {
