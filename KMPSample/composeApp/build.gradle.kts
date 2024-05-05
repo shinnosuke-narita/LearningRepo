@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.android)
+            implementation(libs.ktor.client.okhttp)
             implementation(libs.android.driver)
             implementation(libs.koin.androidx.compose)
             implementation(libs.androidx.compose.material3)
@@ -70,6 +71,8 @@ kotlin {
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.tabNavigator)
             implementation(libs.voyager.koin)
+            /** kamel */
+            implementation(libs.kamel.image)
         }
     }
 }
