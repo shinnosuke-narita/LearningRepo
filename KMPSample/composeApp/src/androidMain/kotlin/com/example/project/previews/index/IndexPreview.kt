@@ -1,4 +1,4 @@
-package com.example.project.prev
+package com.example.project.previews.index
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
