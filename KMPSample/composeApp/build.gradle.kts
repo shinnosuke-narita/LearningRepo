@@ -44,25 +44,32 @@ kotlin {
             implementation(libs.native.driver)
         }
         commonMain.dependencies {
+            /** base */
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.coroutines.core)
+            /** compose */
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.kotlinx.coroutines.core)
+            /** ktor */
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.runtime)
+            /** koin */
             implementation(libs.koin.core)
+            /** voyager */
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenModel)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.tabNavigator)
+            implementation(libs.voyager.koin)
         }
     }
 }

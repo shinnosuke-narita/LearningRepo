@@ -1,17 +1,15 @@
 package com.example.project
 
 import android.app.Application
-import com.example.project.di.appModule
+import com.example.project.di.KoinInit
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 
 class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin {
+        KoinInit().execute {
             androidContext(this@MainApplication)
-            modules(appModule)
         }
     }
 }
