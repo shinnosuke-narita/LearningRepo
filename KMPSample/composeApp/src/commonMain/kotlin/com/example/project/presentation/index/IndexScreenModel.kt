@@ -1,4 +1,4 @@
-package com.example.project.ui.index
+package com.example.project.presentation.index
 
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope

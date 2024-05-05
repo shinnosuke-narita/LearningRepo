@@ -1,4 +1,4 @@
-package com.example.project.ui.index
+package com.example.project.presentation.index
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.example.project.ui.detail.DetailScreen
+import com.example.project.presentation.detail.DetailScreen
 
 
 class IndexScreen : Screen {

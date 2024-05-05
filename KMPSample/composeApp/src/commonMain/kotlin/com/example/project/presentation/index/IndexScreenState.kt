@@ -1,4 +1,4 @@
-package com.example.project.ui.index
+package com.example.project.presentation.index
 
 import com.example.project.entities.PokemonEntity
 
