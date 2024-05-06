@@ -18,9 +18,19 @@ data class PokemonResponseDto(
     fun toPokemonEntityList(): List<PokemonEntity> {
         return results?.map { dto ->
             PokemonEntity(
+                id = getIdFromUrl(dto.url),
                 name = dto.name,
                 url = dto.url
             )
         } ?: emptyList()
+    }
+
+    private fun getIdFromUrl(url: String): Int {
+        val list = url.split("/")
+        return try {
+            list[list.size-2].toInt()
+        } catch (e: NumberFormatException) {
+            -1
+        }
     }
 }
