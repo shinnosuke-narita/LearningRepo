@@ -74,6 +74,14 @@ kotlin {
             /** kamel */
             implementation(libs.kamel.image)
         }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlin.test.junit)
+            implementation(libs.kotlin.mockk)
+            implementation(libs.kotlin.mockk.common)
+            implementation(libs.junit)
+        }
     }
 }
 
