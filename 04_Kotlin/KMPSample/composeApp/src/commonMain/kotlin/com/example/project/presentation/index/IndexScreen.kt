@@ -68,7 +68,6 @@ class IndexScreen : Screen {
                     )
                 }
                 is Success -> {
-                    val pokemonEntities: List<PokemonEntity> = (state as? Success)?.pokemonList ?: emptyList()
                     LazyVerticalGrid(
                         modifier = Modifier.fillMaxSize(),
                         columns = GridCells.Fixed(3),
@@ -76,7 +75,7 @@ class IndexScreen : Screen {
                         verticalArrangement = Arrangement.spacedBy(4.dp),
                         contentPadding = PaddingValues(10.dp, 10.dp)
                     ) {
-                        items(pokemonEntities) { pokemonEntity ->
+                        items(state.pokemonList) { pokemonEntity ->
                             PokemonCard(pokemonEntity)
                         }
                     }
