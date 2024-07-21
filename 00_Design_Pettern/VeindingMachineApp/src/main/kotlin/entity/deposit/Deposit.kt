@@ -39,7 +39,7 @@ class Deposit(private val moneyList: List<MoneyCounter>) : IDeposit {
 
         add(money)
 
-        vendingMachine.hasChange().onError { error ->
+        vendingMachine.haveEnoughChange().onError { error ->
             subtract(money)
             return Result(null, error)
         }

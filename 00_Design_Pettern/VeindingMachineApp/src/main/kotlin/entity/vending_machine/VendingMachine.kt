@@ -45,7 +45,7 @@ class VendingMachine (
         return deposit.getAmount(money)
     }
 
-    override fun hasChange(): Result<Boolean> {
+    override fun haveEnoughChange(): Result<Boolean> {
         return coinStock.hasChange(this)
     }
 }

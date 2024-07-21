@@ -9,5 +9,5 @@ interface IVendingMachine {
     fun getLowestPrice(): Int
     fun getTotalDeposit(): Int
     fun getDepositAmount(money: Money): Int
-    fun hasChange(): Result<Boolean>
+    fun haveEnoughChange(): Result<Boolean>
 }
