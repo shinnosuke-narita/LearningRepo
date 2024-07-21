@@ -1,0 +1,23 @@
+@startuml put_coin
+
+participant interactor
+participant Customer
+Participant Wallet
+participant VendingMachine
+participant Deposit
+participant CoinStocker
+
+interactor -> Customer : putMoney(money, vendingMachine)
+Customer -> Wallet : getMoney(money)
+Wallet -> Wallet
+Wallet --> Customer : return result
+alt result is null
+  Customer --> interactor : return errorMessage
+else
+  Customer -> VendingMachine : insertMoney(money, customer)
+  VendingMachine -> Deposit : insertMoney(money, IVendingMachine)
+  Deposit --> VendingMachine : return result
+  VendingMachine --> Customer : return result
+end
+
+@enduml

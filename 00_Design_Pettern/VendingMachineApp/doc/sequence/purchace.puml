@@ -1,0 +1,42 @@
+@startuml purchace-sequence
+'https://plantuml.com/sequence-diagram
+
+
+participant Scene
+participant Controller
+participant Customer
+participant VendingMachine
+
+'
+
+View -> Controller : buy(drink)
+
+
+
+' activate Client
+'     create CoffeeMemo
+'     Client -> CoffeeMemo : new
+
+'     activate CoffeeMemo
+
+'     Client -> CoffeeMemo : レシピ追加(レシピ)
+'     Client -> CoffeeMemo : レシピ追加(レシピ)
+'     Client -> CoffeeMemo : レシピ追加(レシピ)
+
+'     create CoffeeMemoIterator
+'     CoffeeMemo -> CoffeeMemoIterator: new
+'     activate CoffeeMemoIterator
+
+'     loop レシピ数
+'         Client -> CoffeeMemoIterator : 次へ進める
+'         CoffeeMemoIterator -> CoffeeMemo : レシピ取得
+'         CoffeeMemoIterator -> CoffeeMemoIterator : インデックスをインクリメント
+'         CoffeeMemo --> CoffeeMemoIterator : レシピ返却
+'         CoffeeMemoIterator --> Client : レシピ = レシピ返却
+'         Client -> Client : 出力(レシピ)
+'     end
+
+'     deactivate CoffeeMemoIterator
+'     deactivate CoffeeMemo
+' deactivate Client
+@enduml

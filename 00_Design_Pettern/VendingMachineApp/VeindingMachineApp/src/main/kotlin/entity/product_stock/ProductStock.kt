@@ -5,7 +5,6 @@ import entity.counter.ProductCounter
 import entity.product_stock.public_interface.IProductStock
 
 class ProductStock(
-
     private val productList: List<ProductCounter>
 ) : IProductStock {
     companion object {

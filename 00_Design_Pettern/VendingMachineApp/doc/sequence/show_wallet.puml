@@ -1,0 +1,25 @@
+@startuml ShowWallet
+participant View
+participant Controller
+participant Customer
+
+' x円 y枚
+' x円 y枚
+' x円 y枚
+' x円 y枚
+' x円 y枚
+' 合計 xxxx円
+'
+
+View -> Controller : requestWalletData()
+Controller -> Customer : requestWalletData()
+Customer -> Wallet : collectMoneyData
+
+loop お金の種類分
+  Wallet -> Wallet : getMoneyName
+  Wallet -> Wallet : getAmount
+  Wallet -> Controller : show(name, amount)
+  Controller -> View : show(name, amount)
+end
+
+@enduml

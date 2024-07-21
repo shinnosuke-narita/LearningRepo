@@ -1,0 +1,49 @@
+@startuml vendingMachine
+
+interface IVendingMachine {
+  + insertMoney(Money, ICustomer): Result<Int?>
+  + getLowestPrice(): Int
+  + getTotalDeposit(): Int
+  + getDepositAmount(money: Money): Int
+  + haveEnoughChange(): Result<Boolean>
+}
+
+class VendingMachine {
+  - ICoinStock coinStock
+  - ProductStock productStock
+  - Income income
+  - IDeposit deposit
+}
+
+interface IDeposit {
+    + insertMoney(Money, IVendingMachine): Result<Int?>
+    + getTotal(): Int
+    + getAmount(Money): Int
+}
+
+class Deposit {
+  - moneyList: List<MoneyCouter>
+}
+
+interface IProductStock {
+  + getLowestPrice(): Int
+}
+
+class ProductStock {
+  - productList: List<ProductCounter>
+}
+
+
+interface ICoinStock
+class Income
+
+IVendingMachine <|-- VendingMachine
+VendingMachine *-- ICoinStock
+VendingMachine *-- IDeposit
+VendingMachine *-- IProductStock
+VendingMachine *-- Income
+
+IDeposit <|-- Deposit
+IProductStock <|-- ProductStock
+
+@enduml

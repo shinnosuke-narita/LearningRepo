@@ -1,0 +1,15 @@
+@startuml deposit
+
+interface IDeposit {
+    + insertMoney(Money, IVendingMachine): Result<Int?>
+    + getTotal(): Int
+    + getAmount(Money): Int
+}
+
+class Deposit {
+  - moneyList: List<MoneyCouter>
+}
+
+IDeposit <|-- Deposit
+
+@enduml
