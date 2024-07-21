@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title coffee memo(iterator pattern)
+
+
+package com.practice.design.iterator {
+class CoffeeMemo {
+- MutableList<DripRecipe> recipes
++ void addRecipe(DripRecipe recipe)
++ int getSize()
++ DripRecipe getRecipeByIndex(int index)
++ Iterator<CoffeeMemo> iterator()
+}
+
+class CoffeeMemoIterator {
+- CoffeeMemo memo
+- int index
++ boolean hasNext()
++ DripRecipe next()
+}
+
+class DripRecipe {
+- String country
+- String roast
+- String grindSize
+
++ String showRecipeInfo()
+}
+}
+
+
+package kotlin.collections {
+interface Iterator<T> {
++ boolean hasNext()
++ T next()
+}
+
+interface Iterable<T> {
++ Iterator<T> iterator()
+}
+}
+
+
+Iterable - Iterator : create >
+CoffeeMemo ..|> Iterable
+CoffeeMemoIterator ..|> Iterator
+CoffeeMemo <-o CoffeeMemoIterator
+DripRecipe <--o CoffeeMemo
+
+
+@enduml
