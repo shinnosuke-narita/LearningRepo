@@ -31,7 +31,7 @@ class CoinStock(
         }
     }
 
-    override fun hasChange(vendingMachine: IVendingMachine): Result<Boolean> {
+    override fun hasEnoughChange(vendingMachine: IVendingMachine): Result<Boolean> {
         val totalDeposit = vendingMachine.getTotalDeposit()
         val lowestProductPrice = vendingMachine.getLowestPrice()
         val charge = totalDeposit - lowestProductPrice

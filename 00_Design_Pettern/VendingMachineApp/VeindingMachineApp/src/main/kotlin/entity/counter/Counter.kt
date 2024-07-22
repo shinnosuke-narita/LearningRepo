@@ -4,7 +4,7 @@ abstract class Counter<T>(
     val data: T,
     protected var _amount: Int
 ) {
-    val amount: Int = _amount
+    val amount: Int get () = _amount
 
     fun add(data: T) {
         if(!isSame(data)) return

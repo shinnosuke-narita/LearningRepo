@@ -46,6 +46,6 @@ class VendingMachine (
     }
 
     override fun haveEnoughChange(): Result<Boolean> {
-        return coinStock.hasChange(this)
+        return coinStock.hasEnoughChange(this)
     }
 }
