@@ -3,52 +3,40 @@ package entity.wallet
 import entity.Result
 import entity.customer.public_interface.IWallet
 import entity.money.Money
-import entity.counter.MoneyCounter
 
-class Wallet(private val moneyList: List<MoneyCounter>) : IWallet {
+class Wallet(private val moneyMap: MutableMap<Money, Int>) : IWallet {
     companion object {
         private const val NO_MONEY_MESSAGE = "そのお金はありません"
     }
 
-    fun getTotal(): Int {
-        var result = 0
-        moneyList.forEach{ counter ->
-            result += counter.getTotal()
-        }
-
-        return result
-    }
+    override fun getTotal(): Int =
+        moneyMap
+            .map { (money, amount) ->
+                money.value * amount
+            }
+            .sum()
 
     fun collectMoneyInfo(show: (String, Int) -> Unit) {
-        moneyList.forEach{ counter ->
-            show(counter.getMoneyName(), counter.amount)
+        moneyMap.forEach{ (money, amount) ->
+            show(money.name, amount)
         }
     }
 
-    private fun isOneAndMore(money: Money): Boolean {
-        val counter = moneyList.find { counter -> counter.isSame(money) }
-            ?: return false
+    private fun isOneAndMore(money: Money): Boolean = moneyMap.getOrDefault(money, 0) >= 1
 
-        return counter.amount > 0
-    }
-
-    override fun getMoney(money: Money): Result<Money?> {
+    override fun spendMoney(money: Money): Result<Unit> {
         if (!isOneAndMore(money)) {
-            return Result(null, NO_MONEY_MESSAGE)
+            return Result(Unit, NO_MONEY_MESSAGE)
         }
 
-        moneyList.forEach { moneyCounter ->
-            moneyCounter.subtract(money)
-        }
+        moneyMap[money] = moneyMap[money]!!.dec()
 
-        return Result(money)
+        return Result(Unit)
     }
 
-    override fun addMoney(money: Money) {
-        moneyList.forEach { counter ->
-            if (!counter.isSame(money)) return@forEach
-
-            counter.add(money)
+    override fun putMoney(money: Money) {
+        moneyMap.getOrDefault(money, 0).let { current ->
+            moneyMap[money] = current + 1
         }
     }
 }

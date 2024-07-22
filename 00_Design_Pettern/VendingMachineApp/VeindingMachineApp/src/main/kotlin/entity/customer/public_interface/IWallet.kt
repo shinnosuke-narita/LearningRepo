@@ -4,6 +4,7 @@ import entity.Result
 import entity.money.Money
 
 interface IWallet {
-    fun getMoney(money: Money): Result<Money?>
-    fun addMoney(money: Money)
+    fun spendMoney(money: Money): Result<Unit>
+    fun putMoney(money: Money)
+    fun getTotal(): Int
 }

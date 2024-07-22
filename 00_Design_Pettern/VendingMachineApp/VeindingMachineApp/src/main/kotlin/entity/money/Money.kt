@@ -10,8 +10,10 @@ sealed class Money(
         const val UNIT = "円"
     }
 
-    abstract fun getType(): Int
-    abstract fun getSuffix(): String
+    abstract val type: Int
+    abstract val suffix: String
+
+    val name: String get() = "$value$suffix"
 
     operator fun compareTo(other: Money): Int {
         return when {
@@ -22,13 +24,14 @@ sealed class Money(
     }
 
     abstract class Coin(value: Int, isValid: Boolean): Money(value, isValid) {
-        override fun getType(): Int = COIN
-        override fun getSuffix(): String = "${UNIT}玉"
+        override val type: Int = COIN
+        override val suffix: String
+            get() = "${UNIT}玉"
     }
 
     abstract class Bill(value: Int, isValid: Boolean): Money(value, isValid) {
-        override fun getType(): Int = BILL
-        override fun getSuffix(): String = "${UNIT}札"
+        override val type: Int = BILL
+        override val suffix: String = "${UNIT}札"
     }
 
     data object One          : Coin(1, false)

@@ -15,16 +15,16 @@ class Customer(private val wallet: Wallet) : ICustomer {
         return wallet.getTotal()
     }
 
-    override fun putMoney(money: Money, vendingMachine: IVendingMachine): Result<Int?> {
-        val result = wallet.getMoney(money)
-        if (result.isError()) {
-            return Result(null, result.errorMessage)
+    override fun putMoney(money: Money, vendingMachine: IVendingMachine): Result<Int?> =
+        wallet.spendMoney(money).let { result ->
+            if (result.isError()) {
+                Result(null, result.errorMessage)
+            } else {
+                vendingMachine.insertMoney(money, this)
+            }
         }
 
-        return vendingMachine.insertMoney(money, this)
-    }
-
     override fun returnMoney(money: Money) {
-        wallet.addMoney(money)
+        wallet.putMoney(money)
     }
 }

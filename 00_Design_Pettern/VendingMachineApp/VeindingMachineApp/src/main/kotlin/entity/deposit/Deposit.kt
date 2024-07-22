@@ -33,7 +33,7 @@ class Deposit(private val moneyList: List<MoneyCounter>) : IDeposit {
 
     override fun insertMoney(money: Money, vendingMachine: IVendingMachine): Result<Int?> {
         if (!money.isValid) {
-            val error = INVALID_MESSAGE.format(money.value, money.getSuffix())
+            val error = INVALID_MESSAGE.format(money.name)
             return Result(null, error)
         }
 

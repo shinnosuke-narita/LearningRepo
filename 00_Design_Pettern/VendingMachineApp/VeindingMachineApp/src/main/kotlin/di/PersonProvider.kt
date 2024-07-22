@@ -19,15 +19,15 @@ object PersonProvider {
         return instance ?: setUpPerson()
     }
 
-    private fun getInitialWallet(): List<MoneyCounter> {
-        return listOf(
-            MoneyCounter(Money.Ten, 10),
-            MoneyCounter(Money.Fifty, 10),
-            MoneyCounter(Money.OneHundred, 10),
-            MoneyCounter(Money.FiveHundred, 10),
-            MoneyCounter(Money.OneThousand, 10),
-            MoneyCounter(Money.OneThousand, 10),
-            MoneyCounter(Money.OneThousand, 10)
+    private fun getInitialWallet(): MutableMap<Money, Int> {
+        return mutableMapOf(
+            Money.Ten to 10,
+            Money.Fifty to 10,
+            Money.OneHundred to 10,
+            Money.FiveHundred to 10,
+            Money.OneThousand to 10,
+            Money.OneThousand to 10,
+            Money.OneThousand to 10
         )
     }
 }

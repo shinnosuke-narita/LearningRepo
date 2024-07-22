@@ -12,7 +12,5 @@ class MoneyCounter(
         return this.money.value == data.value
     }
 
-    fun getMoneyName(): String = "${money.value}${money.getSuffix()}"
-
     fun getTotal(): Int = money.value * _amount
 }
