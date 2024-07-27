@@ -1,6 +1,6 @@
 package view.menu
 
-import view.base.scene.Scene
+import view.base.Scene
 import view.menu.public_interface.IMenuScene
 
 class MenuScene(controller: MenuController): Scene<MenuSceneState>(controller), IMenuScene {

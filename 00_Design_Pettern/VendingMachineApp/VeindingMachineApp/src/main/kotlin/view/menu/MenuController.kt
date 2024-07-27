@@ -4,10 +4,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import view.base.scene.IController
-import view.base.scene.SceneState
+import view.base.IController
+import view.base.SceneState
 import view.menu.public_interface.IMenuRouter
-import view.menu.public_interface.IMenuScene
 
 data class MenuSceneState(override val isFinish: Boolean) : SceneState(false)
 

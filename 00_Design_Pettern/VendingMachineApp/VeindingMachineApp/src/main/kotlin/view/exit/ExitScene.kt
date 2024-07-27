@@ -1,6 +1,6 @@
 package view.exit
 
-import view.base.scene.Scene
+import view.base.Scene
 import view.exit.public_interface.IExitScene
 
 class ExitScene(controller: ExitController) : Scene<ExitSceneState>(controller), IExitScene {
@@ -10,6 +10,8 @@ class ExitScene(controller: ExitController) : Scene<ExitSceneState>(controller),
             append("a) 終了\n")
             append("b) メニューに戻る")
         }.toString()
+
+    override fun contents(state: ExitSceneState) {}
 
     override fun showExitMessage() {
         println("アプリを終了しました")

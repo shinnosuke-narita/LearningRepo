@@ -1,21 +1,14 @@
-package view.base.scene
+package view.base
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.StateFlow
-
-abstract class SceneState(open val isFinish: Boolean)
-
-interface IController<T> {
-    val sceneState: StateFlow<T>
-    fun nextAction(input: String)
-}
 
 abstract class Scene<T: SceneState>(val controller: IController<T>) {
     private val sceneScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var job: Job? = null
 
     abstract val sceneName: String
-    open val operation = ""
+    abstract val operation: String
+    abstract fun contents(state: T)
 
     fun run(): Job {
         job =
@@ -37,8 +30,6 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
 
         return job!!
     }
-
-    open fun contents(state: T) {}
 
     protected fun spacer() {
         println()

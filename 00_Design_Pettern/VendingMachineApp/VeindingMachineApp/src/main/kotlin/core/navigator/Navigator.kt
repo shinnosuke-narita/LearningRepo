@@ -1,6 +1,6 @@
 package core.navigator
 
-import view.base.scene.Scene
+import view.base.Scene
 
 object Navigator {
     private val sceneQueue: ArrayDeque<Scene<*>> = ArrayDeque()

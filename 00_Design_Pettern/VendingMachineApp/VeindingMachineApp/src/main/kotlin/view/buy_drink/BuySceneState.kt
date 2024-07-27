@@ -1,7 +1,7 @@
 package view.buy_drink
 
 import core.money.Money
-import view.base.scene.SceneState
+import view.base.SceneState
 
 data class BuySceneState(
     val totalDeposit: Int,

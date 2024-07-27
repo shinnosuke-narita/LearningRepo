@@ -1,10 +1,5 @@
 package view.show_wallet
 
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import view.base.scene.Scene
-import view.show_wallet.public_interface.IWalletScene
-
 //class WalletScene: Scene(), IWalletScene {
 //    lateinit var controller: WalletController
 //

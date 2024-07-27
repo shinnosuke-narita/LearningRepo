@@ -1,8 +1,8 @@
 package view.buy_drink
 
 import core.money.Money
-import view.base.scene.IController
-import view.base.scene.Scene
+import view.base.IController
+import view.base.Scene
 
 class BuyScene(controller: IController<BuySceneState>) : Scene<BuySceneState>(controller) {
     companion object {

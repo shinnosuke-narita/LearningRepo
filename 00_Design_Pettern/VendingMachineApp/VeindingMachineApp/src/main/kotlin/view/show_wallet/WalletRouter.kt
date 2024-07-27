@@ -1,11 +1,5 @@
 package view.show_wallet
 
-import core.navigator.Navigator
-import view.base.scene.Scene
-import di.PersonProvider
-import view.menu.MenuRouter
-import view.show_wallet.public_interface.IWalletRouter
-
 //class WalletRouter : IWalletRouter {
 //    companion object {
 //        fun setUpScene(): Scene {

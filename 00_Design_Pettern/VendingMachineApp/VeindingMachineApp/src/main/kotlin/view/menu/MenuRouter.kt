@@ -1,7 +1,7 @@
 package view.menu
 
 import core.navigator.Navigator
-import view.base.scene.Scene
+import view.base.Scene
 import view.buy_drink.router.BuyRouter
 import view.exit.ExitRouter
 import view.menu.public_interface.IMenuRouter
