@@ -1,4 +1,4 @@
-package view.buy_drink.intent
+package view.buy.intent
 
 import core.money.Money
 

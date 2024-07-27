@@ -2,7 +2,7 @@ package view.menu
 
 import core.navigator.Navigator
 import view.base.Scene
-import view.buy_drink.router.BuyRouter
+import view.buy.router.BuyRouter
 import view.exit.ExitRouter
 import view.menu.public_interface.IMenuRouter
 

@@ -1,4 +1,4 @@
-package view.buy_drink.processor
+package view.buy.processor
 
 import core.money.Money
 

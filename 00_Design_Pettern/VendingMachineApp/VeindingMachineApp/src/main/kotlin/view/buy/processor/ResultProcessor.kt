@@ -1,8 +1,8 @@
-package view.buy_drink.processor
+package view.buy.processor
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
-import view.buy_drink.BuySceneState
+import view.buy.BuySceneState
 
 class ResultProcessor {
     fun handle(actionResult: BuyActionResult, currentState: MutableStateFlow<BuySceneState>) {

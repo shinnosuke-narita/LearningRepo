@@ -1,4 +1,4 @@
-package view.buy_drink
+package view.buy
 
 import core.money.Money
 import view.base.SceneState

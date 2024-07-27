@@ -1,7 +1,7 @@
-package view.buy_drink.public_interface
+package view.buy.public_interface
 
 import kotlinx.coroutines.flow.StateFlow
-import view.buy_drink.BuySceneState
+import view.buy.BuySceneState
 
 interface IBuyController {
     val sceneState: StateFlow<BuySceneState>

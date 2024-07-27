@@ -1,4 +1,4 @@
-package view.buy_drink
+package view.buy
 
 import core.customer.public_interface.ICustomer
 import core.vending_machine.public_interface.IVendingMachine
@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import view.base.IController
-import view.buy_drink.intent.BuyIntent
-import view.buy_drink.intent.IntentDispatcher
-import view.buy_drink.processor.BuyActionResult
-import view.buy_drink.processor.ResultProcessor
-import view.buy_drink.public_interface.IBuyRouter
+import view.buy.intent.BuyIntent
+import view.buy.intent.IntentDispatcher
+import view.buy.processor.BuyActionResult
+import view.buy.processor.ResultProcessor
+import view.buy.public_interface.IBuyRouter
 
 class BuyController(
     private val router: IBuyRouter,

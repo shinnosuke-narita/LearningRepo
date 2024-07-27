@@ -1,12 +1,12 @@
-package view.buy_drink.router
+package view.buy.router
 
 import core.navigator.Navigator
 import di.PersonProvider
 import di.VendingMachineProvider
 import view.base.Scene
-import view.buy_drink.public_interface.IBuyRouter
-import view.buy_drink.BuyController
-import view.buy_drink.BuyScene
+import view.buy.public_interface.IBuyRouter
+import view.buy.BuyController
+import view.buy.BuyScene
 import view.menu.MenuRouter
 
 class BuyRouter : IBuyRouter {

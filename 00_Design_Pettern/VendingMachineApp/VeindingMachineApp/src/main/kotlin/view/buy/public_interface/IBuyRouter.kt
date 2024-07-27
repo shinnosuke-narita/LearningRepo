@@ -1,4 +1,4 @@
-package view.buy_drink.public_interface
+package view.buy.public_interface
 
 interface IBuyRouter {
     fun pushMenu()
