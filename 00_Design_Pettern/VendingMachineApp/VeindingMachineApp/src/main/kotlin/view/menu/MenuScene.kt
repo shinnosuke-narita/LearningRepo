@@ -1,5 +1,6 @@
 package view.menu
 
+import controller.menu.MenuController
 import view.base.Scene
 import view.menu.public_interface.IMenuScene
 

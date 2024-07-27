@@ -1,5 +1,6 @@
 package view.menu
 
+import controller.menu.MenuController
 import model.navigator.Navigator
 import view.base.Scene
 import view.buy.router.BuyRouter
