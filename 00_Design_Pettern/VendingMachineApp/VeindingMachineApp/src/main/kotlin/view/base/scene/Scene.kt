@@ -11,10 +11,10 @@ abstract class Scene {
     suspend fun run() {
         showTitle()
         showContent()
-        initialFunc().join()
+        startCollect().join()
     }
 
     abstract fun showTitle()
     abstract fun showContent()
-    abstract fun initialFunc(): Job
+    abstract fun startCollect(): Job
 }

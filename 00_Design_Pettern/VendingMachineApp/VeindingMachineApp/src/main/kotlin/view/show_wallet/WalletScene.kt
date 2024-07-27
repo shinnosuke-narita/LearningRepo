@@ -17,7 +17,7 @@ class WalletScene: Scene(), IWalletScene {
     }
 
     override fun showContent() {}
-    override fun initialFunc(): Job =
+    override fun startCollect(): Job =
         sceneScope.launch { controller.requestWalletData() }
 
 

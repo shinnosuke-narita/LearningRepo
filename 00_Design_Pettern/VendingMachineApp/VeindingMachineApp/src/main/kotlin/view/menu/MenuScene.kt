@@ -17,7 +17,7 @@ class MenuScene: Scene(), IMenuScene {
         showMenu()
     }
 
-    override fun initialFunc(): Job =
+    override fun startCollect(): Job =
         sceneScope.launch {
             controller.nextScene(readln())
         }

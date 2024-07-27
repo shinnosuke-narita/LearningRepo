@@ -26,7 +26,7 @@ class BuyScene : Scene(), IBuyScene {
         println()
     }
 
-    override fun initialFunc() =
+    override fun startCollect() =
         sceneScope.launch {
             controller.sceneState.collect { state ->
                 if (state.isFinish) {

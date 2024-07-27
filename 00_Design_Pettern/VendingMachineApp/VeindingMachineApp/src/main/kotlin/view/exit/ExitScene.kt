@@ -19,7 +19,7 @@ class ExitScene : Scene(), IExitScene {
 
     }
 
-    override fun initialFunc(): Job =
+    override fun startCollect(): Job =
         sceneScope.launch {
             controller.nextScene(readln())
         }
