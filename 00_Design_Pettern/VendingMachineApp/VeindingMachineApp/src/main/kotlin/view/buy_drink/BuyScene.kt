@@ -5,12 +5,10 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import view.base.scene.Scene
 import view.buy_drink.public_interface.IBuyController
-import view.buy_drink.public_interface.IBuyScene
 
-class BuyScene : Scene(), IBuyScene {
+class BuyScene : Scene() {
     companion object {
         private const val ERROR_FORMAT = "✖✖✖ %s ✖✖✖"
-        private const val DEPOSIT_FORMAT = "%s円を入金しました"
         private const val TOTAL_FORMAT = "入金額合計 %d円"
         private const val MONEY_FORMAT = "%s: %d枚"
     }
@@ -34,7 +32,7 @@ class BuyScene : Scene(), IBuyScene {
                     return@collect
                 }
 
-                state.errorMessage?.let { println(it)  }
+                showErrorMessage(state.errorMessage)
                 println()
                 println(TOTAL_FORMAT.format(state.totalDeposit))
                 println()
@@ -44,23 +42,8 @@ class BuyScene : Scene(), IBuyScene {
             }
         }
 
-    override fun onError(value: String) {
-        showErrorMessage(value)
-        println()
-        showMenu()
-        println()
-        controller.nextAction(readln())
-    }
-
-    override fun onReceiveDeposit(total: Int, deposit: Int) {
-        println(String.format(DEPOSIT_FORMAT, deposit))
-        println(String.format(TOTAL_FORMAT, total))
-        println()
-        controller.nextAction(readln())
-    }
-
-    private fun showErrorMessage(value: String) {
-        println(String.format(ERROR_FORMAT, value))
+    private fun showErrorMessage(errorMessage: String?) {
+        errorMessage?.let { println(String.format(ERROR_FORMAT, it)) }
     }
 
     private fun showMenu() {

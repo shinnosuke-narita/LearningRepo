@@ -19,7 +19,6 @@ import view.buy_drink.public_interface.IBuyScene
 
 class BuyController(
     private val router: IBuyRouter,
-    private val scene: IBuyScene,
     private val customer: core.customer.public_interface.ICustomer,
     private val vendingMachine: IVendingMachine,
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -32,14 +31,6 @@ class BuyController(
             )
         )
     override val sceneState = _sceneState.asStateFlow()
-
-    override fun putMoney(input: String) {
-        val inputMoney = MoneyFactory.create(input)
-        if (inputMoney.isError()) {
-            scene.onError(inputMoney.errorMessage)
-            return
-        }
-    }
 
     override fun nextAction(input: String) {
         coroutineScope.launch {

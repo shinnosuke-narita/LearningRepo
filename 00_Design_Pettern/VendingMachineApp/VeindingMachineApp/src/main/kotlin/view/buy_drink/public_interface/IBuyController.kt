@@ -5,6 +5,5 @@ import view.buy_drink.BuySceneState
 
 interface IBuyController {
     val sceneState: StateFlow<BuySceneState>
-    fun putMoney(input: String)
     fun nextAction(input: String)
 }
