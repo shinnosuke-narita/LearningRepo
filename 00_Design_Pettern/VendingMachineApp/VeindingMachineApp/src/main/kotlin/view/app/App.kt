@@ -1,4 +1,4 @@
-package core.app
+package view.app
 
 import core.navigator.Navigator
 import view.menu.MenuRouter
