@@ -17,7 +17,6 @@ class BuyRouter : IBuyRouter {
             val controller =
                 BuyController(
                     router = router,
-                    scene = scene,
                     customer = PersonProvider.provide(),
                     vendingMachine = VendingMachineProvider.provide(),
                 )

@@ -1,6 +1,5 @@
 package view.buy_drink
 
-import core.money.MoneyFactory
 import core.vending_machine.public_interface.IVendingMachine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +14,6 @@ import view.buy_drink.processor.BuyActionResult
 import view.buy_drink.processor.ResultProcessor
 import view.buy_drink.public_interface.IBuyController
 import view.buy_drink.public_interface.IBuyRouter
-import view.buy_drink.public_interface.IBuyScene
 
 class BuyController(
     private val router: IBuyRouter,
@@ -26,7 +24,7 @@ class BuyController(
     private val _sceneState =
         MutableStateFlow(
             BuySceneState(
-                totalDeposit = 0,
+                totalDeposit = vendingMachine.getTotalDeposit(),
                 walletData = customer.getWalletInfo()
             )
         )
