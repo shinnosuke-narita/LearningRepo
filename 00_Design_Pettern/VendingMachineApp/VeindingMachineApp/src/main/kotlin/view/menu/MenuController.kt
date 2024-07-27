@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import view.base.IController
+import controller.base.IController
 import view.menu.public_interface.IMenuRouter
 
 class MenuController(private val router: IMenuRouter) : IController<MenuSceneState> {

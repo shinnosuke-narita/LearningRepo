@@ -1,4 +1,4 @@
-package view.buy.intent
+package controller.buy.intent
 
 import core.money.MoneyFactory
 import kotlinx.coroutines.flow.Flow

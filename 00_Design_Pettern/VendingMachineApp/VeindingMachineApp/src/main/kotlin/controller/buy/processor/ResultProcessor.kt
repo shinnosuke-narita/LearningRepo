@@ -1,4 +1,4 @@
-package view.buy.processor
+package controller.buy.processor
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

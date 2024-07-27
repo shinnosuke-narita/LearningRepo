@@ -1,4 +1,4 @@
-package view.base
+package controller.base
 
 import kotlinx.coroutines.flow.StateFlow
 

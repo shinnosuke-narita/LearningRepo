@@ -1,5 +1,5 @@
 package view.menu
 
-import view.base.SceneState
+import controller.base.SceneState
 
 data class MenuSceneState(override val isFinish: Boolean = false) : SceneState

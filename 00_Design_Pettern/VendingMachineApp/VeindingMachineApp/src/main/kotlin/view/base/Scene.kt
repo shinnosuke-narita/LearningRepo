@@ -1,5 +1,7 @@
 package view.base
 
+import controller.base.IController
+import controller.base.SceneState
 import kotlinx.coroutines.*
 
 abstract class Scene<T: SceneState>(val controller: IController<T>) {

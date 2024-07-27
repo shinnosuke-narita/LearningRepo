@@ -5,7 +5,7 @@ import di.PersonProvider
 import di.VendingMachineProvider
 import view.base.Scene
 import view.buy.public_interface.IBuyRouter
-import view.buy.BuyController
+import controller.buy.BuyController
 import view.buy.BuyScene
 import view.menu.MenuRouter
 

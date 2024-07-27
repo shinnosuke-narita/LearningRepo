@@ -1,7 +1,7 @@
 package view.buy
 
 import core.money.Money
-import view.base.IController
+import controller.base.IController
 import view.base.Scene
 
 class BuyScene(controller: IController<BuySceneState>) : Scene<BuySceneState>(controller) {

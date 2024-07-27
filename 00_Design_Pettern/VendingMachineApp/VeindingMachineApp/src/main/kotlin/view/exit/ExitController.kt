@@ -3,8 +3,8 @@ package view.exit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import view.base.IController
-import view.base.SceneState
+import controller.base.IController
+import controller.base.SceneState
 import view.exit.public_interface.IExitRouter
 
 data class ExitSceneState(override val isFinish: Boolean = false) : SceneState

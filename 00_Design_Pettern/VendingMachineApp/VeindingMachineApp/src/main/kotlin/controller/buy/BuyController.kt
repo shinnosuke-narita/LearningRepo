@@ -1,4 +1,4 @@
-package view.buy
+package controller.buy
 
 import core.customer.public_interface.ICustomer
 import core.vending_machine.public_interface.IVendingMachine
@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import view.base.IController
-import view.buy.intent.BuyIntent
-import view.buy.intent.IntentDispatcher
-import view.buy.processor.BuyActionResult
-import view.buy.processor.ResultProcessor
+import controller.base.IController
+import controller.buy.intent.BuyIntent
+import controller.buy.intent.IntentDispatcher
+import controller.buy.processor.BuyActionResult
+import controller.buy.processor.ResultProcessor
+import view.buy.BuySceneState
 import view.buy.public_interface.IBuyRouter
 
 class BuyController(
