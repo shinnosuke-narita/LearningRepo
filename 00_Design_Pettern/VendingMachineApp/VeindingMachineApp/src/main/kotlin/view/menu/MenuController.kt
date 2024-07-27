@@ -8,7 +8,7 @@ import view.base.IController
 import view.base.SceneState
 import view.menu.public_interface.IMenuRouter
 
-data class MenuSceneState(override val isFinish: Boolean) : SceneState(false)
+data class MenuSceneState(override val isFinish: Boolean = false) : SceneState
 
 class MenuController(private val router: IMenuRouter) : IController<MenuSceneState> {
     private val _sceneState = MutableStateFlow(MenuSceneState(false))

@@ -8,4 +8,4 @@ data class BuySceneState(
     val walletData: Map<Money, Int>,
     val errorMessage: String? = null,
     override val isFinish: Boolean = false
-) : SceneState(isFinish)
+) : SceneState

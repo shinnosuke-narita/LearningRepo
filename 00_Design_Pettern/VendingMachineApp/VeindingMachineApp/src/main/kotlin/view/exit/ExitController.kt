@@ -7,7 +7,7 @@ import view.base.IController
 import view.base.SceneState
 import view.exit.public_interface.IExitRouter
 
-data object ExitSceneState : SceneState(false)
+data class ExitSceneState(override val isFinish: Boolean = false) : SceneState
 
 class ExitController(
     private val router: IExitRouter,
@@ -17,7 +17,7 @@ class ExitController(
         private const val MENU = "b"
     }
 
-    override val sceneState: StateFlow<ExitSceneState> = MutableStateFlow(ExitSceneState).asStateFlow()
+    override val sceneState: StateFlow<ExitSceneState> = MutableStateFlow(ExitSceneState()).asStateFlow()
 
     override fun nextAction(input: String) {
         when(input) {
