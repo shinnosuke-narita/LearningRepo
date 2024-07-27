@@ -15,9 +15,5 @@ class MenuScene(controller: MenuController): Scene<MenuSceneState>(controller), 
             append("e) exit\n")
         }.toString()
 
-    override fun showTitle() {}
-
     override fun contents(state: MenuSceneState) {}
-
-    override fun showContent() {}
 }

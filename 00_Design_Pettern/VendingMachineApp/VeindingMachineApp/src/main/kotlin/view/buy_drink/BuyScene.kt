@@ -19,10 +19,6 @@ class BuyScene(controller: IController<BuySceneState>) : Scene<BuySceneState>(co
             append("m) メニューに戻る")
         }.toString()
 
-    override fun showTitle() {}
-
-    override fun showContent() {}
-
     override fun contents(state: BuySceneState) {
         errorMessage(state.errorMessage)
         spacer()

@@ -18,8 +18,6 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
     open val operation = ""
 
     fun run(): Job {
-        showTitle()
-        showContent()
         job =
             sceneScope.launch {
                 controller.sceneState.collect { state ->
@@ -40,8 +38,6 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
         return job!!
     }
 
-    abstract fun showTitle()
-    abstract fun showContent()
     open fun contents(state: T) {}
 
     protected fun spacer() {
