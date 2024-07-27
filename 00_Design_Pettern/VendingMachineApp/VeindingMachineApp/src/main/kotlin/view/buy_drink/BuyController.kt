@@ -43,17 +43,7 @@ class BuyController(
     private fun handleIntent(intent: BuyIntent): BuyActionResult =
         when(intent) {
             is BuyIntent.Deposit -> {
-                customer.putMoney(intent.deposit, vendingMachine).let {
-                    if (it.isError()) {
-                        BuyActionResult.Error(it.errorMessage)
-                    } else {
-                        BuyActionResult.Deposit(
-                            intent.deposit,
-                            it.data!!,
-                            customer.getWalletInfo()
-                        )
-                    }
-                }
+                depositAction(intent)
             }
             is BuyIntent.Error -> {
                 BuyActionResult.Error(intent.message)
@@ -61,6 +51,19 @@ class BuyController(
             BuyIntent.Transition.Menu -> {
                 router.pushMenu()
                 BuyActionResult.Finish
+            }
+        }
+
+    private fun depositAction(intent: BuyIntent.Deposit): BuyActionResult =
+        customer.putMoney(intent.deposit, vendingMachine).let {
+            if (it.isError()) {
+                BuyActionResult.Error(it.errorMessage)
+            } else {
+                BuyActionResult.Deposit(
+                    intent.deposit,
+                    it.data!!,
+                    customer.getWalletInfo()
+                )
             }
         }
 }
