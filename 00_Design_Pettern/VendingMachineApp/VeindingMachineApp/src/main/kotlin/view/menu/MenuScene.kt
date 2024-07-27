@@ -2,7 +2,9 @@ package view.menu
 
 import view.base.scene.Scene
 import view.menu.public_interface.IMenuScene
-import entity.money.Money
+import core.money.Money
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MenuScene: Scene(), IMenuScene {
     lateinit var controller: MenuController
@@ -15,9 +17,10 @@ class MenuScene: Scene(), IMenuScene {
         showMenu()
     }
 
-    override fun initialFunc() {
-        controller.nextScene(readln())
-    }
+    override fun initialFunc(): Job =
+        sceneScope.launch {
+            controller.nextScene(readln())
+        }
 
     private fun showMenu() {
         println("a) SHOW WALLET")

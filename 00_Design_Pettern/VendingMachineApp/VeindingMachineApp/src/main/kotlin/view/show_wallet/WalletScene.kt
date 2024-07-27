@@ -1,5 +1,7 @@
 package view.show_wallet
 
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import view.base.scene.Scene
 import view.show_wallet.public_interface.IWalletScene
 
@@ -15,10 +17,9 @@ class WalletScene: Scene(), IWalletScene {
     }
 
     override fun showContent() {}
+    override fun initialFunc(): Job =
+        sceneScope.launch { controller.requestWalletData() }
 
-    override fun initialFunc() {
-        requestWalletData()
-    }
 
     override fun showMoneyIndividual(money: String, amount: Int) {
         println("$money ${amount}枚")

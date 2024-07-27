@@ -1,11 +1,11 @@
 package di
 
-import entity.deposit.Deposit
-import entity.money_stock.CoinStock
-import entity.income.Income
-import entity.product_stock.ProductStock
-import entity.vending_machine.VendingMachine
-import entity.vending_machine.public_interface.IVendingMachine
+import core.deposit.Deposit
+import core.money_stock.CoinStock
+import core.income.Income
+import core.product_stock.ProductStock
+import core.vending_machine.VendingMachine
+import core.vending_machine.public_interface.IVendingMachine
 
 object VendingMachineProvider {
     private var instance: VendingMachine? = null

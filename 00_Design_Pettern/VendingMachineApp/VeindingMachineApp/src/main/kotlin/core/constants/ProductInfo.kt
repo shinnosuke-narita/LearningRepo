@@ -1,6 +1,6 @@
 package core.constants
 
-import entity.product.Product
+import core.product.Product
 
 object ProductInfo {
     val data = listOf(

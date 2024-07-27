@@ -1,62 +1,77 @@
 package view.buy_drink
 
+import core.money.MoneyFactory
+import core.vending_machine.public_interface.IVendingMachine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import view.buy_drink.intent.Intent
+import view.buy_drink.intent.IntentDispatcher
+import view.buy_drink.processor.BuyActionResult
+import view.buy_drink.processor.ResultProcessor
 import view.buy_drink.public_interface.IBuyController
 import view.buy_drink.public_interface.IBuyRouter
 import view.buy_drink.public_interface.IBuyScene
-import domain.buy.BuyUseCase
-import domain.buy.model.InputMoney
 
 class BuyController(
     private val router: IBuyRouter,
     private val scene: IBuyScene,
-    private val interactor: BuyUseCase
+    private val customer: core.customer.public_interface.ICustomer,
+    private val vendingMachine: IVendingMachine,
+    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 ): IBuyController {
-    companion object {
-        private const val PRODUCT_PREFIX = "a"
-        private const val DEPOSIT_PREFIX = "b"
-        private const val CHARGE_INPUT = "c"
-        private const val MENU_INPUT = "m"
-        private const val INVALID_INPUT = "無効な入力値です"
-    }
+    private val _sceneState =
+        MutableStateFlow(
+            BuySceneState(
+                totalDeposit = 0,
+                walletData = customer.getWalletInfo()
+            )
+        )
+    override val sceneState = _sceneState.asStateFlow()
 
     override fun putMoney(input: String) {
-        val result = InputMoney.create(input)
-        if (result.isError()) {
-            scene.onError(result.errorMessage)
+        val inputMoney = MoneyFactory.create(input)
+        if (inputMoney.isError()) {
+            scene.onError(inputMoney.errorMessage)
             return
         }
-
-        interactor.putMoney(result.data!!)
-            .onSuccess { output ->
-                output?.let { scene.onReceiveDeposit(it.total, it.deposit) }
-            }
-            .onError { error ->
-                scene.onError(error)
-            }
     }
 
     override fun nextAction(input: String) {
-        when {
-            input.startsWith(PRODUCT_PREFIX) -> {
-
-            }
-            input.startsWith(DEPOSIT_PREFIX) -> {
-                putMoney(input.replace(DEPOSIT_PREFIX, ""))
-            }
-            input == CHARGE_INPUT -> {
-
-            }
-            input == MENU_INPUT -> {
-                onPushMenu()
-                router.pushMenu()
-            }
-            else -> {
-                scene.onError(INVALID_INPUT)
-            }
+        coroutineScope.launch {
+            IntentDispatcher()
+                .handle(input)
+                .map { intent -> handleIntent(intent) }
+                .collect { result -> ResultProcessor().handle(result, _sceneState) }
         }
     }
 
-    override fun selectProduct() {}
-    override fun getCharge() {}
-    override fun onPushMenu() {}
+    private fun handleIntent(intent: Intent): BuyActionResult =
+        when(intent) {
+            is Intent.Deposit -> {
+                customer.putMoney(intent.deposit, vendingMachine).let {
+                    if (it.isError()) {
+                        BuyActionResult.Error(it.errorMessage)
+                    } else {
+                        BuyActionResult.Deposit(
+                            intent.deposit,
+                            it.data!!,
+                            customer.getWalletInfo()
+                        )
+                    }
+                }
+            }
+            is Intent.Error -> {
+                BuyActionResult.Error(intent.message)
+            }
+            Intent.Transition.Menu -> {
+                router.pushMenu()
+                BuyActionResult.Finish
+            }
+        }
 }
+

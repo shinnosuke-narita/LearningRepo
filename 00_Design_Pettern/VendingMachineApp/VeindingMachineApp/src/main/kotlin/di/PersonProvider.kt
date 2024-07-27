@@ -1,10 +1,9 @@
 package di
 
-import entity.money.Money
-import entity.counter.MoneyCounter
-import entity.wallet.Wallet
-import entity.customer.Customer
-import entity.customer.public_interface.ICustomer
+import core.money.Money
+import core.wallet.Wallet
+import core.customer.Customer
+import core.customer.public_interface.ICustomer
 
 object PersonProvider {
     private var instance: Customer? = null

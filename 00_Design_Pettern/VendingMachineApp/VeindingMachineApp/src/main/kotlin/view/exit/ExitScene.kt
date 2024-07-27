@@ -1,5 +1,7 @@
 package view.exit
 
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import view.base.scene.Scene
 import view.exit.public_interface.IExitScene
 
@@ -17,9 +19,10 @@ class ExitScene : Scene(), IExitScene {
 
     }
 
-    override fun initialFunc() {
-        controller.nextScene(readln())
-    }
+    override fun initialFunc(): Job =
+        sceneScope.launch {
+            controller.nextScene(readln())
+        }
 
     override fun showExitMessage() {
         println("アプリを終了しました")
