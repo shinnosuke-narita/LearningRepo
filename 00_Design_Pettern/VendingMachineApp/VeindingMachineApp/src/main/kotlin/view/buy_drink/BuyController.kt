@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import view.base.scene.IController
 import view.buy_drink.intent.Intent
 import view.buy_drink.intent.IntentDispatcher
 import view.buy_drink.processor.BuyActionResult
 import view.buy_drink.processor.ResultProcessor
-import view.buy_drink.public_interface.IBuyController
 import view.buy_drink.public_interface.IBuyRouter
 
 class BuyController(
@@ -20,7 +20,7 @@ class BuyController(
     private val customer: core.customer.public_interface.ICustomer,
     private val vendingMachine: IVendingMachine,
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-): IBuyController {
+): IController<BuySceneState> {
     private val _sceneState =
         MutableStateFlow(
             BuySceneState(

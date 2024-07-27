@@ -7,13 +7,10 @@ import view.menu.MenuRouter
 
 class ExitRouter: IExitRouter {
     companion object {
-        fun setUpExitScene(): Scene {
-            val scene = ExitScene()
+        fun setUpExitScene(): Scene<*> {
             val router = ExitRouter()
-            val controller = ExitController(scene, router)
-            scene.controller = controller
-
-            return scene
+            val controller = ExitController(router)
+            return ExitScene(controller)
         }
     }
 

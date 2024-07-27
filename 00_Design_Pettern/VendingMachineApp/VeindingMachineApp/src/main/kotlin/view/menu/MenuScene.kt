@@ -6,8 +6,8 @@ import core.money.Money
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MenuScene: Scene(), IMenuScene {
-    lateinit var controller: MenuController
+class MenuScene(controller: MenuController): Scene<MenuSceneState>(controller), IMenuScene {
+    override val sceneName: String = "Menu"
 
     override fun showTitle() {
         println("Menu")
@@ -17,10 +17,9 @@ class MenuScene: Scene(), IMenuScene {
         showMenu()
     }
 
-    override fun startCollect(): Job =
-        sceneScope.launch {
-            controller.nextScene(readln())
-        }
+    override suspend fun startCollect() {
+//        controller.nextScene(readln())
+    }
 
     private fun showMenu() {
         println("a) SHOW WALLET")

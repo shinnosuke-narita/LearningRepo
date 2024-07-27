@@ -1,19 +1,17 @@
 package view.buy_drink
 
 import core.money.Money
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import view.base.scene.IController
 import view.base.scene.Scene
-import view.buy_drink.public_interface.IBuyController
 
-class BuyScene : Scene() {
+class BuyScene(controller: IController<BuySceneState>) : Scene<BuySceneState>(controller) {
     companion object {
         private const val ERROR_FORMAT = "✖✖✖ %s ✖✖✖"
         private const val TOTAL_DEPOSIT_FORMAT = "--- 入金額合計 --- \n%d円"
         private const val MONEY_FORMAT = "%s: %d枚"
     }
 
-    lateinit var controller: IBuyController
+    override val sceneName: String = "商品購入画面"
 
     override fun showTitle() {
     }
@@ -21,27 +19,18 @@ class BuyScene : Scene() {
     override fun showContent() {
     }
 
-    override fun startCollect() =
-        sceneScope.launch {
-            controller.sceneState.collect { state ->
-                if (state.isFinish) {
-                    cancel()
-                    return@collect
-                }
+    override suspend fun startCollect() {
+    }
 
-                println("☆☆☆ 商品購入画面 ☆☆☆")
-                println()
-                showMenu()
-                println()
-                showErrorMessage(state.errorMessage)
-                println()
-                println(TOTAL_DEPOSIT_FORMAT.format(state.totalDeposit))
-                println()
-                showWalletInfo(state.walletData)
-
-                controller.nextAction(readln())
-            }
-        }
+    override fun showContents(state: BuySceneState) {
+        showMenu()
+        println()
+        showErrorMessage(state.errorMessage)
+        println()
+        println(TOTAL_DEPOSIT_FORMAT.format(state.totalDeposit))
+        println()
+        showWalletInfo(state.walletData)
+    }
 
     private fun showErrorMessage(errorMessage: String?) {
         errorMessage?.let { println(String.format(ERROR_FORMAT, it)) }

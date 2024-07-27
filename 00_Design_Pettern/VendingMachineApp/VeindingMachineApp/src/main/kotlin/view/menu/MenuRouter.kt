@@ -5,21 +5,18 @@ import view.base.scene.Scene
 import view.buy_drink.router.BuyRouter
 import view.exit.ExitRouter
 import view.menu.public_interface.IMenuRouter
-import view.show_wallet.WalletRouter
 
 class MenuRouter : IMenuRouter {
     companion object {
-        fun setUpMenuScene(): Scene {
+        fun setUpMenuScene(): Scene<MenuSceneState> {
             val router = MenuRouter()
-            val scene = MenuScene()
-            val controller = MenuController(router, scene)
-            scene.controller = controller
-            return scene
+            val controller = MenuController(router)
+            return MenuScene(controller)
         }
     }
 
     override fun pushWalletScene() {
-        Navigator.enqueue(WalletRouter.setUpScene())
+//        Navigator.enqueue(WalletRouter.setUpScene())
     }
 
     override fun pushFinishScene() {

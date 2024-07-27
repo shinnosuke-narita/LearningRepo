@@ -11,16 +11,15 @@ import view.menu.MenuRouter
 
 class BuyRouter : IBuyRouter {
     companion object {
-        fun setUpBuyScene(): Scene {
+        fun setUpBuyScene(): Scene<*> {
             val router= BuyRouter()
-            val scene = BuyScene()
             val controller =
                 BuyController(
                     router = router,
                     customer = PersonProvider.provide(),
                     vendingMachine = VendingMachineProvider.provide(),
                 )
-            scene.controller = controller
+            val scene = BuyScene(controller)
 
             return scene
         }

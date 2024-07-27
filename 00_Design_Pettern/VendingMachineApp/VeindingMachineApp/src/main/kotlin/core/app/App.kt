@@ -14,7 +14,7 @@ class App {
         return scope.launch {
             while(Navigator.existNextScene()) {
                 val scene = Navigator.dequeue()
-                scene.run()
+                scene.run().join()
             }
         }
     }
