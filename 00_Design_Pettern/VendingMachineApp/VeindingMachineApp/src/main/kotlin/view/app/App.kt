@@ -1,6 +1,6 @@
 package view.app
 
-import core.navigator.Navigator
+import model.navigator.Navigator
 import view.menu.MenuRouter
 
 class App {

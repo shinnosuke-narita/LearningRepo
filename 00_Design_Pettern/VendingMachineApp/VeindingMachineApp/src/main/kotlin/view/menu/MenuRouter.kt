@@ -1,6 +1,6 @@
 package view.menu
 
-import core.navigator.Navigator
+import model.navigator.Navigator
 import view.base.Scene
 import view.buy.router.BuyRouter
 import view.exit.ExitRouter

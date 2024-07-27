@@ -1,6 +1,6 @@
 package controller.buy.processor
 
-import core.money.Money
+import model.money.Money
 
 
 sealed class BuyActionResult {

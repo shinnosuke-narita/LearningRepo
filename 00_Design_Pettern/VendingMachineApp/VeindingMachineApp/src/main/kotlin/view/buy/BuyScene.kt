@@ -1,6 +1,6 @@
 package view.buy
 
-import core.money.Money
+import model.money.Money
 import controller.base.IController
 import view.base.Scene
 

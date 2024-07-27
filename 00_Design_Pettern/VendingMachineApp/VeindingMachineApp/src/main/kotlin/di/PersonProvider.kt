@@ -1,9 +1,9 @@
 package di
 
-import core.money.Money
-import core.wallet.Wallet
-import core.customer.Customer
-import core.customer.public_interface.ICustomer
+import model.money.Money
+import model.wallet.Wallet
+import model.customer.Customer
+import model.customer.public_interface.ICustomer
 
 object PersonProvider {
     private var instance: Customer? = null

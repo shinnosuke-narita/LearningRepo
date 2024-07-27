@@ -1,6 +1,6 @@
 package view.buy.router
 
-import core.navigator.Navigator
+import model.navigator.Navigator
 import di.PersonProvider
 import di.VendingMachineProvider
 import view.base.Scene

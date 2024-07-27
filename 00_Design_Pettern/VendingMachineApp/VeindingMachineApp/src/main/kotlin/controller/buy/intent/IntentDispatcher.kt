@@ -1,6 +1,6 @@
 package controller.buy.intent
 
-import core.money.MoneyFactory
+import model.money.MoneyFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

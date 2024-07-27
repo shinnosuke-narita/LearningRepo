@@ -1,6 +1,6 @@
 package controller.buy.intent
 
-import core.money.Money
+import model.money.Money
 
 sealed class BuyIntent {
     data class Deposit(val deposit: Money) : BuyIntent()

@@ -1,6 +1,6 @@
 package view.exit
 
-import core.navigator.Navigator
+import model.navigator.Navigator
 import view.base.Scene
 import view.exit.public_interface.IExitRouter
 import view.menu.MenuRouter

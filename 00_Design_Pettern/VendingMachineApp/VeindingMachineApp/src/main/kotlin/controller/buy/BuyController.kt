@@ -1,7 +1,7 @@
 package controller.buy
 
-import core.customer.public_interface.ICustomer
-import core.vending_machine.public_interface.IVendingMachine
+import model.customer.public_interface.ICustomer
+import model.vending_machine.public_interface.IVendingMachine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
