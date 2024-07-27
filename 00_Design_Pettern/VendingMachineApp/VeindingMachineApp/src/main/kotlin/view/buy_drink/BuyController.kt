@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import view.base.IController
-import view.buy_drink.intent.Intent
+import view.buy_drink.intent.BuyIntent
 import view.buy_drink.intent.IntentDispatcher
 import view.buy_drink.processor.BuyActionResult
 import view.buy_drink.processor.ResultProcessor
@@ -40,9 +40,9 @@ class BuyController(
         }
     }
 
-    private fun handleIntent(intent: Intent): BuyActionResult =
+    private fun handleIntent(intent: BuyIntent): BuyActionResult =
         when(intent) {
-            is Intent.Deposit -> {
+            is BuyIntent.Deposit -> {
                 customer.putMoney(intent.deposit, vendingMachine).let {
                     if (it.isError()) {
                         BuyActionResult.Error(it.errorMessage)
@@ -55,10 +55,10 @@ class BuyController(
                     }
                 }
             }
-            is Intent.Error -> {
+            is BuyIntent.Error -> {
                 BuyActionResult.Error(intent.message)
             }
-            Intent.Transition.Menu -> {
+            BuyIntent.Transition.Menu -> {
                 router.pushMenu()
                 BuyActionResult.Finish
             }

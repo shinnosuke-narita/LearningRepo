@@ -12,27 +12,27 @@ class IntentDispatcher {
         private const val MENU_INPUT = "m"
     }
 
-    fun handle(input: String): Flow<Intent> =
+    fun handle(input: String): Flow<BuyIntent> =
         flow {
             when {
-                input == MENU_INPUT -> Intent.Transition.Menu
+                input == MENU_INPUT -> BuyIntent.Transition.Menu
                 input.startsWith(PRODUCT_PREFIX) -> {
-                    Intent.Error("not implementation")
+                    BuyIntent.Error("not implementation")
                 }
                 input.startsWith(DEPOSIT_PREFIX) -> {
                     MoneyFactory.create(input).let { result ->
                         if (result.isError()) {
-                            Intent.Error(result.errorMessage)
+                            BuyIntent.Error(result.errorMessage)
                         } else {
-                            Intent.Deposit(result.data!!)
+                            BuyIntent.Deposit(result.data!!)
                         }
                     }
                 }
                 input == CHARGE_INPUT -> {
-                    Intent.Error("not implementation")
+                    BuyIntent.Error("not implementation")
                 }
                 else -> {
-                    Intent.Error("not implementation")
+                    BuyIntent.Error("not implementation")
                 }
             }.also {
                 emit(it)
