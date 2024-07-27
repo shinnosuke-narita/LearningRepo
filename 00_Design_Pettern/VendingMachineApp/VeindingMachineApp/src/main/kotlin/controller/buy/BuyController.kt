@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import controller.base.IController
 import controller.buy.intent.BuyIntent
-import controller.buy.intent.IntentDispatcher
+import controller.buy.intent.BuyIntentDispatcher
 import controller.buy.processor.BuyActionResult
-import controller.buy.processor.ResultProcessor
+import controller.buy.processor.BuyActionProcessor
 import view.buy.BuySceneState
 import view.buy.public_interface.IBuyRouter
 
@@ -34,10 +34,10 @@ class BuyController(
 
     override fun nextAction(input: String) {
         coroutineScope.launch {
-            IntentDispatcher()
+            BuyIntentDispatcher()
                 .handle(input)
                 .map { intent -> handleIntent(intent) }
-                .collect { result -> ResultProcessor().handle(result, _sceneState) }
+                .collect { result -> BuyActionProcessor().handle(result, _sceneState) }
         }
     }
 

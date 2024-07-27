@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import view.buy.BuySceneState
 
-class ResultProcessor {
+class BuyActionProcessor {
     fun handle(actionResult: BuyActionResult, currentState: MutableStateFlow<BuySceneState>) {
         when(actionResult) {
             is BuyActionResult.Deposit -> {

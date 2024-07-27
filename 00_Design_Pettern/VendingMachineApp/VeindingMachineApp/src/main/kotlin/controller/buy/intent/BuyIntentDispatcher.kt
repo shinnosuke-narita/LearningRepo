@@ -4,7 +4,7 @@ import model.money.MoneyFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class IntentDispatcher {
+class BuyIntentDispatcher {
     companion object {
         private const val PRODUCT_PREFIX = "a"
         private const val DEPOSIT_PREFIX = "b"
