@@ -6,7 +6,7 @@ import view.base.scene.Scene
 
 class BuyScene(controller: IController<BuySceneState>) : Scene<BuySceneState>(controller) {
     companion object {
-        private const val TOTAL_DEPOSIT_FORMAT = "--- 入金額合計 --- \n%d円"
+        private const val TOTAL_DEPOSIT_FORMAT = "%d円"
         private const val MONEY_FORMAT = "%s: %d枚"
     }
 
@@ -28,11 +28,12 @@ class BuyScene(controller: IController<BuySceneState>) : Scene<BuySceneState>(co
     }
 
     private fun depositInfo(totalDeposit: Int) {
+        header("入金額合計")
         println(TOTAL_DEPOSIT_FORMAT.format(totalDeposit))
     }
 
     private fun walletInfo(walletInfo: Map<Money, Int>) {
-        header("--- お財布の中身 ---")
+        header("お財布の中身")
         StringBuilder()
             .apply {
                 walletInfo.forEach { (money, amount) ->
