@@ -2,32 +2,22 @@ package view.menu
 
 import view.base.scene.Scene
 import view.menu.public_interface.IMenuScene
-import core.money.Money
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 class MenuScene(controller: MenuController): Scene<MenuSceneState>(controller), IMenuScene {
     override val sceneName: String = "Menu"
+    override val operation: String =
+        StringBuilder().apply {
+            append("a) SHOW WALLET\n")
+            append("b) SHOW DRINK\n")
+            append("c) BUY DRINK\n")
+            append("d) WORK\n")
+            append("\n")
+            append("e) exit\n")
+        }.toString()
 
-    override fun showTitle() {
-        println("Menu")
-    }
+    override fun showTitle() {}
 
-    override fun showContent() {
-        showMenu()
-    }
+    override fun contents(state: MenuSceneState) {}
 
-    override suspend fun startCollect() {
-//        controller.nextScene(readln())
-    }
-
-    private fun showMenu() {
-        println("a) SHOW WALLET")
-        println("b) SHOW DRINK")
-        println("c) BUY DRINK")
-        println("d) WORK")
-        println()
-        println("e) exit")
-        println()
-    }
+    override fun showContent() {}
 }

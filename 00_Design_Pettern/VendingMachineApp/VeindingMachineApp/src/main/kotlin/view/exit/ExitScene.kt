@@ -15,10 +15,6 @@ class ExitScene(controller: ExitController) : Scene<ExitSceneState>(controller),
         println()
     }
 
-    override suspend fun startCollect() {
-//        controller.nextScene(readln())
-    }
-
     override fun showExitMessage() {
         println("アプリを終了しました")
     }

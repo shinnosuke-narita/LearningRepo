@@ -15,6 +15,7 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
     private var job: Job? = null
 
     abstract val sceneName: String
+    open val operation = ""
 
     fun run(): Job {
         showTitle()
@@ -27,9 +28,10 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
                         return@collect
                     }
 
-                    showSceneName()
+                    sceneName()
                     spacer()
-                    showContents(state)
+                    operation()
+                    contents(state)
 
                     controller.nextAction(readln())
                 }
@@ -38,27 +40,41 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
         return job!!
     }
 
+    abstract fun showTitle()
+    abstract fun showContent()
+    open fun contents(state: T) {}
+
+    protected fun spacer() {
+        println()
+    }
+
+    protected fun header(resource: String) {
+        println(HEADER_FORMAT.format(resource))
+    }
+
+    protected fun errorMessage(resource: String?) {
+        resource?.let { println(ERROR_FORMAT.format(it)) }
+    }
+
+    private fun sceneName() {
+        println(SCENE_NAME_FORMAT.format(sceneName))
+    }
+
+    private fun operation() {
+        header(OPERATION)
+        println(operation)
+    }
+
     private fun finish() {
         if (job?.isActive == true) {
             job?.cancel()
         }
     }
 
-    abstract fun showTitle()
-    abstract fun showContent()
-    abstract suspend fun startCollect()
-    open fun showContents(state: T) {}
-
-    protected fun spacer() {
-        println()
-    }
-
-    private fun showSceneName() {
-        println(SCENE_NAME_FORMAT.format(sceneName))
-    }
-
     companion object {
         private const val SCENE_NAME_FORMAT = "☆☆☆ %s ☆☆☆"
-        const val HEADER_FORMAT = "--- %s ---"
+        private const val HEADER_FORMAT = "--- %s ---"
+        private const val ERROR_FORMAT = "✖✖✖ %s ✖✖✖"
+        private const val OPERATION = "操作"
     }
 }
