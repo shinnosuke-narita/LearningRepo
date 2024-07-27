@@ -21,7 +21,6 @@ class BuyController(
     private val router: IBuyRouter,
     private val customer: ICustomer,
     private val vendingMachine: IVendingMachine,
-    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 ): IController<BuySceneState> {
     private val _sceneState =
         MutableStateFlow(
@@ -32,13 +31,11 @@ class BuyController(
         )
     override val sceneState = _sceneState.asStateFlow()
 
-    override fun nextAction(input: String) {
-        coroutineScope.launch {
-            BuyIntentDispatcher()
-                .handle(input)
-                .map { intent -> handleIntent(intent) }
-                .collect { result -> BuyActionProcessor().handle(result, _sceneState) }
-        }
+    override suspend fun nextAction(input: String) {
+        BuyIntentDispatcher()
+            .handle(input)
+            .map { intent -> handleIntent(intent) }
+            .collect { result -> BuyActionProcessor().handle(result, _sceneState) }
     }
 
     private fun handleIntent(intent: BuyIntent): BuyActionResult =

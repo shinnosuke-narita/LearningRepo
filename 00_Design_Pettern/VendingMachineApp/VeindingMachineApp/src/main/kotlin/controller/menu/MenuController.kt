@@ -5,6 +5,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import controller.base.IController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import view.menu.MenuSceneState
 import view.menu.public_interface.IMenuRouter
 
@@ -12,20 +15,8 @@ class MenuController(private val router: IMenuRouter) : IController<MenuSceneSta
     private val _sceneState = MutableStateFlow(MenuSceneState(false))
     override val sceneState: StateFlow<MenuSceneState> = _sceneState.asStateFlow()
 
-    override fun nextAction(input: String) {
-        when(input) {
-            SHOW_WALLET -> { router.pushWalletScene() }
-            BUY_DRINK -> { router.pushBuyScene() }
-            else -> { router.pushFinishScene() }
-        }
-
+    override suspend fun nextAction(input: String) {
+        router.pushBuyScene()
         _sceneState.update { it.copy(isFinish = true) }
-    }
-
-    companion object {
-        private const val SHOW_WALLET = "a"
-        private const val SHOW_PRODUCT = "b"
-        private const val BUY_DRINK = "c"
-        private const val WORK = "d"
     }
 }

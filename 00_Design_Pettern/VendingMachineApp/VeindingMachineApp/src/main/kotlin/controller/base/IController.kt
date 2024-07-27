@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface IController<T> {
     val sceneState: StateFlow<T>
-    fun nextAction(input: String)
+    suspend fun nextAction(input: String)
 }

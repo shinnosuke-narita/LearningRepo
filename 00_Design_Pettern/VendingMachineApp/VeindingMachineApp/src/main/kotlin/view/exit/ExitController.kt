@@ -19,7 +19,7 @@ class ExitController(
 
     override val sceneState: StateFlow<ExitSceneState> = MutableStateFlow(ExitSceneState()).asStateFlow()
 
-    override fun nextAction(input: String) {
+    override suspend fun nextAction(input: String) {
         when(input) {
 //            EXIT -> { scene.showExitMessage() }
             MENU -> { router.pushMenuScene() }
