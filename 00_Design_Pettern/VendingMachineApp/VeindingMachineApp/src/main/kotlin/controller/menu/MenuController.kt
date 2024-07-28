@@ -5,7 +5,6 @@ import controller.menu.intent.MenuIntent
 import controller.menu.intent.MenuIntentDispatcher
 import controller.menu.processor.MenuSceneStateDispatcher
 import controller.menu.processor.MenuActionResult
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import view.menu.MenuSceneState
 import view.menu.public_interface.IMenuRouter
@@ -15,19 +14,19 @@ class MenuController(
     private val intentDispatcher: MenuIntentDispatcher = MenuIntentDispatcher(),
     private val sceneStateDispatcher:  MenuSceneStateDispatcher = MenuSceneStateDispatcher()
 ) : IController<MenuSceneState> {
-    private val _sceneState = MenuSceneState()
+    private val _currentState = MenuSceneState()
     override val sceneState = MutableSharedFlow<MenuSceneState>(extraBufferCapacity = 1)
 
     override suspend fun nextAction(input: String) {
         intentDispatcher
             .handle(input)
             .map { intent -> handleIntent(intent) }
-            .map { actionResult -> sceneStateDispatcher.handle(actionResult, _sceneState) }
+            .map { actionResult -> sceneStateDispatcher.handle(actionResult, _currentState) }
             .collect { state -> sceneState.emit(state)}
     }
 
     override suspend fun loadCurrentState() {
-        sceneState.emit(_sceneState)
+        sceneState.emit(_currentState)
     }
 
     private fun handleIntent(intent: MenuIntent): MenuActionResult =

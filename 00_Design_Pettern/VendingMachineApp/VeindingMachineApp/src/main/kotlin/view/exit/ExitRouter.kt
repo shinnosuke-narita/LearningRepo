@@ -1,5 +1,6 @@
 package view.exit
 
+import controller.exit.ExitController
 import model.navigator.Navigator
 import view.base.Scene
 import view.exit.public_interface.IExitRouter

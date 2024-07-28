@@ -1,9 +1,10 @@
 package view.exit
 
+import controller.exit.ExitController
+import controller.exit.ExitSceneState
 import view.base.Scene
-import view.exit.public_interface.IExitScene
 
-class ExitScene(controller: ExitController) : Scene<ExitSceneState>(controller), IExitScene {
+class ExitScene(controller: ExitController) : Scene<ExitSceneState>(controller) {
     override val sceneName: String = "アプリ終了"
     override val operation: String =
         StringBuilder().apply {
@@ -12,8 +13,4 @@ class ExitScene(controller: ExitController) : Scene<ExitSceneState>(controller),
         }.toString()
 
     override fun contents(state: ExitSceneState) {}
-
-    override fun showExitMessage() {
-        println("アプリを終了しました")
-    }
 }

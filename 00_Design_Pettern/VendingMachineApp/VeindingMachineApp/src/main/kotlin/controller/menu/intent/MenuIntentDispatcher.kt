@@ -11,6 +11,7 @@ class MenuIntentDispatcher {
                 PRODUCT -> MenuIntent.Transition.PRODUCT
                 BUY -> MenuIntent.Transition.BUY
                 WORK -> MenuIntent.Transition.WORK
+                EXIT -> MenuIntent.Transition.EXIT
                 else -> MenuIntent.Error(ERROR_INPUT)
             }.also {
                 emit(it)
@@ -22,6 +23,7 @@ class MenuIntentDispatcher {
         private const val PRODUCT = "b"
         private const val BUY = "c"
         private const val WORK = "d"
+        private const val EXIT = "e"
         private const val ERROR_INPUT = "無効な入力値です"
     }
 }
