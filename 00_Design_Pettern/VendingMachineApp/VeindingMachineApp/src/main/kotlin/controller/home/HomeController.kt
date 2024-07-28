@@ -6,15 +6,17 @@ import controller.home.intent.HomeIntentDispatcher
 import controller.home.processor.HomeSceneStateDispatcher
 import controller.home.processor.HomeActionResult
 import kotlinx.coroutines.flow.*
+import model.vending_machine.public_interface.IVendingMachine
 import view.home.HomeSceneState
 import view.home.public_interface.IHomeRouter
 
 class HomeController(
     private val router: IHomeRouter,
+    private val vendingMachine: IVendingMachine,
     private val intentDispatcher: HomeIntentDispatcher = HomeIntentDispatcher(),
     private val sceneStateDispatcher:  HomeSceneStateDispatcher = HomeSceneStateDispatcher()
 ) : IController<HomeSceneState> {
-    private val _currentState = HomeSceneState()
+    private val _currentState = HomeSceneState(productInfo = vendingMachine.getAllProductInfo())
     override val sceneState = MutableSharedFlow<HomeSceneState>(extraBufferCapacity = 1)
 
     override suspend fun nextAction(input: String) {

@@ -1,6 +1,7 @@
 package view.home
 
 import controller.home.HomeController
+import di.VendingMachineProvider
 import model.navigator.Navigator
 import view.base.Scene
 import view.buy.router.BuyRouter
@@ -10,8 +11,11 @@ import view.home.public_interface.IHomeRouter
 class HomeRouter : IHomeRouter {
     companion object {
         fun setUpMenuScene(): Scene<HomeSceneState> {
-            val router = HomeRouter()
-            val controller = HomeController(router)
+            val controller =
+                HomeController(
+                    HomeRouter(),
+                    VendingMachineProvider.provide()
+                )
             return HomeScene(controller)
         }
     }
