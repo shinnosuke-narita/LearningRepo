@@ -2,18 +2,15 @@ package controller.buy
 
 import model.customer.public_interface.ICustomer
 import model.vending_machine.public_interface.IVendingMachine
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import controller.base.IController
 import controller.buy.intent.BuyIntent
 import controller.buy.intent.BuyIntentDispatcher
 import controller.buy.processor.BuyActionResult
-import controller.buy.processor.BuyActionProcessor
+import controller.buy.processor.BuyStateDispatcher
+import kotlinx.coroutines.flow.update
 import view.buy.BuySceneState
 import view.buy.public_interface.IBuyRouter
 
@@ -21,6 +18,8 @@ class BuyController(
     private val router: IBuyRouter,
     private val customer: ICustomer,
     private val vendingMachine: IVendingMachine,
+    private val intentDispatcher: BuyIntentDispatcher = BuyIntentDispatcher(),
+    private val stateDispatcher: BuyStateDispatcher = BuyStateDispatcher()
 ): IController<BuySceneState> {
     private val _sceneState =
         MutableStateFlow(
@@ -32,10 +31,11 @@ class BuyController(
     override val sceneState = _sceneState.asStateFlow()
 
     override suspend fun nextAction(input: String) {
-        BuyIntentDispatcher()
+        intentDispatcher
             .handle(input)
             .map { intent -> handleIntent(intent) }
-            .collect { result -> BuyActionProcessor().handle(result, _sceneState) }
+            .map { actionResult -> stateDispatcher.handle(actionResult, _sceneState.value) }
+            .collect { state -> _sceneState.update { state }  }
     }
 
     private fun handleIntent(intent: BuyIntent): BuyActionResult =
