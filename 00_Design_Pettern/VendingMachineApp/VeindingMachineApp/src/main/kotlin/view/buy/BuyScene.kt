@@ -20,8 +20,6 @@ class BuyScene(controller: IController<BuySceneState>) : Scene<BuySceneState>(co
         }.toString()
 
     override fun contents(state: BuySceneState) {
-        errorMessage(state.errorMessage)
-        spacer()
         depositInfo(state.totalDeposit)
         spacer()
         walletInfo(state.walletData)

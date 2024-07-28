@@ -7,5 +7,6 @@ class MenuSceneStateDispatcher {
     fun handle(actionResult: MenuActionResult, currentState: MenuSceneState): MenuSceneState =
         when(actionResult) {
             MenuActionResult.Finish -> currentState.copy(isFinish = true)
+            is MenuActionResult.Error -> currentState.copy(errorMessage = actionResult.message)
         }
 }

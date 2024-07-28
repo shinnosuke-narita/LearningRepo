@@ -3,6 +3,7 @@ package view.base
 import controller.base.IController
 import controller.base.SceneState
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 
 abstract class Scene<T: SceneState>(val controller: IController<T>) {
     private val sceneScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -15,18 +16,25 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
     fun run(): Job {
         job =
             sceneScope.launch {
-                controller.sceneState.collect { state ->
-                    if (state.isFinish) {
-                        finish()
-                        return@collect
-                    }
+                launch {
+                    controller.sceneState
+                        .onSubscription { controller.loadCurrentState() }
+                        .onEach { state ->
+                            if (state.isFinish) {
+                                finish()
+                                return@onEach
+                            }
 
-                    sceneName()
-                    spacer()
-                    operation()
-                    contents(state)
+                            sceneName()
+                            spacer()
+                            errorMessage(state.errorMessage)
+                            spacer()
+                            operation()
+                            contents(state)
 
-                    controller.nextAction(readln())
+                            controller.nextAction(readln())
+                        }
+                        .collect()
                 }
             }
 
@@ -42,7 +50,10 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
     }
 
     protected fun errorMessage(resource: String?) {
-        resource?.let { println(ERROR_FORMAT.format(it)) }
+        resource?.let {
+            println(ERROR_FORMAT)
+            println(it)
+        }
     }
 
     private fun sceneName() {
@@ -63,7 +74,7 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
     companion object {
         private const val SCENE_NAME_FORMAT = "☆☆☆ %s ☆☆☆"
         private const val HEADER_FORMAT = "--- %s ---"
-        private const val ERROR_FORMAT = "✖✖✖ %s ✖✖✖"
+        private const val ERROR_FORMAT = "✖✖✖ エラー ✖✖✖"
         private const val OPERATION = "操作"
     }
 }

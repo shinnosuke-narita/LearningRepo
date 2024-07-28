@@ -1,13 +1,14 @@
 package view.exit
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import controller.base.IController
 import controller.base.SceneState
+import kotlinx.coroutines.flow.*
 import view.exit.public_interface.IExitRouter
 
-data class ExitSceneState(override val isFinish: Boolean = false) : SceneState
+data class ExitSceneState(
+    override val isFinish: Boolean = false,
+    override val errorMessage: String? = null
+) : SceneState
 
 class ExitController(
     private val router: IExitRouter,
@@ -17,7 +18,7 @@ class ExitController(
         private const val MENU = "b"
     }
 
-    override val sceneState: StateFlow<ExitSceneState> = MutableStateFlow(ExitSceneState()).asStateFlow()
+    override val sceneState: SharedFlow<ExitSceneState> = MutableStateFlow(ExitSceneState()).asSharedFlow()
 
     override suspend fun nextAction(input: String) {
         when(input) {
