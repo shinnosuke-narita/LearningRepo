@@ -28,8 +28,8 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
                             sceneName()
                             spacer()
                             errorMessage(state.errorMessage)
-                            spacer()
                             operation()
+                            spacer()
                             contents(state)
 
                             controller.nextAction(readln())
@@ -53,6 +53,7 @@ abstract class Scene<T: SceneState>(val controller: IController<T>) {
         resource?.let {
             println(ERROR_FORMAT)
             println(it)
+            spacer()
         }
     }
 
