@@ -8,5 +8,6 @@ sealed class MenuIntent {
         data object PRODUCT : Transition()
         data object BUY : Transition()
         data object WORK : Transition()
+        data object EXIT : Transition()
     }
 }
