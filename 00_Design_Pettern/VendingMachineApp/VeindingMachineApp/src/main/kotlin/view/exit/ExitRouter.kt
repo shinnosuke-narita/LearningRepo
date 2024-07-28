@@ -4,7 +4,7 @@ import controller.exit.ExitController
 import model.navigator.Navigator
 import view.base.Scene
 import view.exit.public_interface.IExitRouter
-import view.menu.MenuRouter
+import view.home.HomeRouter
 
 class ExitRouter: IExitRouter {
     companion object {
@@ -16,6 +16,6 @@ class ExitRouter: IExitRouter {
     }
 
     override fun pushMenuScene() {
-        Navigator.enqueue(MenuRouter.setUpMenuScene())
+        Navigator.enqueue(HomeRouter.setUpMenuScene())
     }
 }

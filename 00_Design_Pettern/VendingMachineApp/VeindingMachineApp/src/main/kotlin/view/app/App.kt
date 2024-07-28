@@ -1,11 +1,11 @@
 package view.app
 
 import model.navigator.Navigator
-import view.menu.MenuRouter
+import view.home.HomeRouter
 
 class App {
     init {
-        Navigator.enqueue(MenuRouter.setUpMenuScene())
+        Navigator.enqueue(HomeRouter.setUpMenuScene())
     }
 
     suspend fun run() {

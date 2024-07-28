@@ -1,8 +1,8 @@
-package view.menu
+package view.home
 
 import controller.base.SceneState
 
-data class MenuSceneState(
+data class HomeSceneState(
     override val isFinish: Boolean = false,
     override val errorMessage: String? = null
 ) : SceneState
