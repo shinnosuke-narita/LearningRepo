@@ -11,7 +11,7 @@ class CoinStock(
     private val moneyList: List<MoneyCounter>
 ) : ICoinStock {
     companion object {
-        private const val NOT_ENOUGH_CHARGE = "釣銭不足です"
+        private const val NOT_ENOUGH_CHARGE = "釣銭不足です。\n入金されたお金を返却いたしました。"
 
         val MONEY_LIST = listOf(
             Money.OneThousand,
@@ -44,7 +44,6 @@ class CoinStock(
             CoreResult(false, NOT_ENOUGH_CHARGE)
         }
     }
-
 
     private fun hasEnoughCharge(
         charge: Int,
