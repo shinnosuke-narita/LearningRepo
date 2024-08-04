@@ -9,7 +9,7 @@ class BuyStateDispatcher {
     ): BuySceneState =
         when(actionResult) {
             is BuyActionResult.Deposit -> {
-                 currentState.copy(totalDeposit = actionResult.total)
+                 currentState.copy(totalDeposit = actionResult.total, errorMessage = null)
             }
             is BuyActionResult.Error -> {
                  currentState.copy(errorMessage = actionResult.message)
