@@ -1,7 +1,7 @@
 package di
 
 import model.income.Income
-import model.money_stock.MoneyStore
+import model.money_store.MoneyStore
 import model.product_stock.ProductStock
 import model.vending_machine.VendingMachine
 import model.vending_machine.public_interface.IVendingMachine

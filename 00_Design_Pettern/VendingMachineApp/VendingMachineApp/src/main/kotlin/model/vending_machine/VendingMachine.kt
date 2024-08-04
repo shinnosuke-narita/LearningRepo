@@ -2,7 +2,7 @@ package model.vending_machine
 
 import model.customer.public_interface.ICustomer
 import model.money.Money
-import model.money_stock.public_interface.IMoneyStore
+import model.money_store.public_interface.IMoneyStore
 import model.income.Income
 import model.product.Product
 import model.product_stock.public_interface.IProductStock

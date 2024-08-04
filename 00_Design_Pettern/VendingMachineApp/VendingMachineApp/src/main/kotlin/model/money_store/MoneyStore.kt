@@ -1,8 +1,8 @@
-package model.money_stock
+package model.money_store
 
 import model.result.CoreResult
 import model.money.Money
-import model.money_stock.public_interface.IMoneyStore
+import model.money_store.public_interface.IMoneyStore
 
 data class Deposit(val value: Int) {
     init {

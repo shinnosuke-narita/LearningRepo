@@ -1,7 +1,7 @@
-package model.money_stock.public_interface
+package model.money_store.public_interface
 
 import model.money.Money
-import model.money_stock.Deposit
+import model.money_store.Deposit
 import model.result.CoreResult
 
 
