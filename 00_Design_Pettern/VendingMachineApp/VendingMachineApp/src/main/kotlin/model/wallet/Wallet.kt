@@ -15,12 +15,6 @@ class Wallet(private val _moneyMap: MutableMap<Money, Int>) : IWallet {
             }
             .sum()
 
-    fun collectMoneyInfo(show: (String, Int) -> Unit) {
-        _moneyMap.forEach{ (money, amount) ->
-            show(money.name, amount)
-        }
-    }
-
     private fun isOneAndMore(money: Money): Boolean = _moneyMap.getOrDefault(money, 0) >= 1
 
     override fun spendMoney(money: Money): CoreResult<Unit> {
