@@ -1,9 +1,11 @@
 package model.money_stock.public_interface
 
+import model.money.Money
+import model.money_stock.Deposit
 import model.result.CoreResult
-import model.vending_machine.public_interface.IVendingMachine
 
 
-interface ICoinStock {
-    fun hasEnoughChange(vendingMachine: IVendingMachine): CoreResult<Boolean>
+interface IMoneyStore {
+    val deposit: Deposit
+    fun putMoney(money: Money, lowestProductPrice: Int): CoreResult<Deposit?>
 }

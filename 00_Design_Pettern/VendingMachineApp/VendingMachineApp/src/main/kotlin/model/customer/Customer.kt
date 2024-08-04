@@ -13,7 +13,7 @@ class Customer(private val wallet: Wallet) : ICustomer {
             if (result.isError()) {
                 CoreResult(null, result.errorMessage)
             } else {
-                vendingMachine.insertMoney(money, this)
+                vendingMachine.onPutMoney(money, this)
             }
         }
 

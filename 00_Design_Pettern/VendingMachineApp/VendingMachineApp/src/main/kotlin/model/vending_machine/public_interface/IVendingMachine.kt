@@ -6,10 +6,8 @@ import model.product.Product
 import model.result.CoreResult
 
 interface IVendingMachine {
-    fun insertMoney(money: Money, customer: ICustomer): CoreResult<Int?>
+    fun onPutMoney(money: Money, customer: ICustomer): CoreResult<Int?>
     fun getLowestPrice(): Int
     fun getTotalDeposit(): Int
-    fun getDepositAmount(money: Money): Int
-    fun haveEnoughChange(): CoreResult<Boolean>
     fun getAllProductInfo(): Map<Product, Boolean>
 }

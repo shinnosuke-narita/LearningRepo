@@ -1,62 +1,50 @@
 package model.money_stock
 
 import model.result.CoreResult
-import model.counter.MoneyCounter
 import model.money.Money
-import model.money_stock.public_interface.ICoinStock
-import model.vending_machine.public_interface.IVendingMachine
+import model.money_stock.public_interface.IMoneyStore
 
-
-class CoinStock(
-    private val moneyList: List<MoneyCounter>
-) : ICoinStock {
-    companion object {
-        private const val NOT_ENOUGH_CHARGE = "釣銭不足です。\n入金されたお金を返却いたしました。"
-
-        val MONEY_LIST = listOf(
-            Money.OneThousand,
-            Money.FiveHundred,
-            Money.OneHundred,
-            Money.Fifty,
-            Money.Ten
-        )
-
-        fun getInitialStock(): List<MoneyCounter> {
-            return listOf(
-                MoneyCounter(Money.Ten, 3),
-                MoneyCounter(Money.Fifty, 1),
-                MoneyCounter(Money.OneHundred, 3),
-                MoneyCounter(Money.FiveHundred, 1),
-                MoneyCounter(Money.OneThousand, 1)
-            )
-        }
+data class Deposit(val value: Int) {
+    init {
+        if (value < 0) throw IllegalArgumentException("引数の値がマイナスです。")
     }
 
-    override fun hasEnoughChange(vendingMachine: IVendingMachine): CoreResult<Boolean> {
-        val totalDeposit = vendingMachine.getTotalDeposit()
-        val lowestProductPrice = vendingMachine.getLowestPrice()
-        val charge = totalDeposit - lowestProductPrice
-        if (charge < 0) return CoreResult(true)
+    operator fun plus(other: Deposit): Deposit = Deposit(value + other.value)
+    operator fun minus(other: Deposit): Deposit = Deposit(value - other.value)
+}
 
-        return if (hasEnoughCharge(charge, vendingMachine)) {
-            CoreResult(true)
-        } else {
-            CoreResult(false, NOT_ENOUGH_CHARGE)
+class MoneyStore(
+    private val moneyMap: MutableMap<Money, Int>,
+    private var _deposit: Deposit = Deposit(0)
+) : IMoneyStore {
+    override val deposit: Deposit get() = _deposit
+
+    override fun putMoney(money: Money, lowestProductPrice: Int): CoreResult<Deposit?> {
+        if (!money.isValid) {
+            val error = INVALID_MESSAGE.format(money.name)
+            return CoreResult(null, error)
         }
+
+        addMoney(money)
+
+        val change = _deposit.value - lowestProductPrice
+        if (!hasEnoughChange(change)) {
+            rollback(money)
+            return CoreResult(null, NOT_ENOUGH_CHARGE)
+        }
+
+        return CoreResult(_deposit)
     }
 
-    private fun hasEnoughCharge(
-        charge: Int,
-        vendingMachine: IVendingMachine
-    ): Boolean {
-        var target = charge
+    private fun hasEnoughChange(change: Int): Boolean {
+        var target = change
         run loop@ {
             MONEY_LIST.forEach { money ->
                 if (target <= 0) return@loop
 
                 val requiredAmount = target / money.value
-                val totalStock = getAmount(money) + vendingMachine.getDepositAmount(money)
-                val result = requiredAmount - totalStock
+                val currentAmount = getAmount(money)
+                val result = requiredAmount - currentAmount
                 if (result <= 0) {
                     // stock あり
                     target %= money.value
@@ -64,27 +52,61 @@ class CoinStock(
                 }
 
                 // stock 足らない
-                target -= money.value * totalStock
+                target -= money.value * currentAmount
             }
         }
 
         return target <= 0
     }
 
-    private fun getAmount(money: Money): Int {
-        val counter = moneyList.find {
-            moneyCounter -> moneyCounter.isSame(money)
-        }
+    private fun getAmount(money: Money): Int = moneyMap[money] ?: 0
 
-        return counter?.amount ?: 0
+    private fun rollback(money: Money) {
+        _deposit -= Deposit(money.value)
+        subtract(money)
     }
 
-    private fun getTotalCharge(): Int {
-        var result = 0
-        moneyList.forEach { counter ->
-            result += counter.getTotal()
-        }
+    private fun addMoney(money: Money) {
+        _deposit += Deposit(money.value)
+        add(money)
+    }
 
-        return result
+    private fun add(money: Money) {
+        if (!money.isValid) return
+
+        moneyMap[money] = moneyMap[money]?.inc() ?: 0
+    }
+
+    private fun subtract(money: Money) {
+        if (!money.isValid) return
+
+        moneyMap[money]?.dec()?.let { decrementedAmount ->
+            if (decrementedAmount < 0) return@let
+
+            moneyMap[money] = decrementedAmount
+        }
+    }
+
+    companion object {
+        private const val NOT_ENOUGH_CHARGE = "釣銭不足です。\n入金されたお金を返却いたしました。"
+        private const val INVALID_MESSAGE = "%d%sはご利用いただけません"
+
+        val MONEY_LIST =
+            listOf(
+                Money.OneThousand,
+                Money.FiveHundred,
+                Money.OneHundred,
+                Money.Fifty,
+                Money.Ten
+            )
+
+        fun getInitialStock(): MutableMap<Money, Int> =
+            mutableMapOf(
+                Money.Ten to 3,
+                Money.Fifty to 1,
+                Money.OneHundred to 3,
+                Money.FiveHundred to 1,
+                Money.OneThousand to 1
+            )
     }
 }
