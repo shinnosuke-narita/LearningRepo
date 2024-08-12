@@ -2,8 +2,8 @@ package model.vending_machine
 
 import model.customer.public_interface.ICustomer
 import model.money.Money
-import model.money_store.public_interface.IMoneyStore
 import model.income.Income
+import model.money_store.public_interface.IMoneyStore
 import model.product.Product
 import model.product_stock.public_interface.IProductStock
 import model.result.CoreResult
@@ -17,7 +17,7 @@ class VendingMachine (
     override fun onPutMoney(money: Money, customer: ICustomer): CoreResult<Int?> =
         moneyStore.putMoney(money, productStock.getLowestPrice()).let { result ->
             if (result.isError()) {
-                customer.returnMoney(money)
+                customer.receiveMoney(money)
                 CoreResult(null, errorMessage = result.errorMessage)
             } else {
                 CoreResult(result.data!!.value)

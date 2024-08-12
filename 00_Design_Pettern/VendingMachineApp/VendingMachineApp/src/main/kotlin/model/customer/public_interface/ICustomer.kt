@@ -12,7 +12,7 @@ interface ICustomer {
     ): CoreResult<Int?>
 
 
-    fun returnMoney(money: Money)
+    fun receiveMoney(money: Money)
 
     fun getWalletInfo(): Map<Money, Int>
 }

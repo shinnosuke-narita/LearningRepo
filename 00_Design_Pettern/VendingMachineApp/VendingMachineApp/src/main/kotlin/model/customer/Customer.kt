@@ -17,7 +17,7 @@ class Customer(private val wallet: Wallet) : ICustomer {
             }
         }
 
-    override fun returnMoney(money: Money) {
+    override fun receiveMoney(money: Money) {
         wallet.putMoney(money)
     }
 
