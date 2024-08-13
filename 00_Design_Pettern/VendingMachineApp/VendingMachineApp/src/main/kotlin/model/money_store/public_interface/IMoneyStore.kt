@@ -8,4 +8,5 @@ import model.result.CoreResult
 interface IMoneyStore {
     val deposit: Deposit
     fun putMoney(money: Money, lowestProductPrice: Int): CoreResult<Deposit?>
+    fun getAmount(money: Money): Int
 }

@@ -59,7 +59,7 @@ class MoneyStore(
         return target <= 0
     }
 
-    private fun getAmount(money: Money): Int = moneyMap[money] ?: 0
+    override fun getAmount(money: Money): Int = moneyMap[money] ?: 0
 
     private fun rollback(money: Money) {
         _deposit -= Deposit(money.value)
