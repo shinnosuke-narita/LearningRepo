@@ -1,5 +1,8 @@
 package controller.buy
 
+import application.customer.IGetWalletInfoApplicationService
+import application.vending_machine.deposit.IGetDepositApplicationService
+import application.vending_machine.put_money.IPutMoneyApplicationService
 import controller.base.IController
 import controller.buy.intent.BuyIntent
 import controller.buy.intent.BuyIntentDispatcher
@@ -7,22 +10,21 @@ import controller.buy.processor.BuyActionResult
 import controller.buy.processor.BuyStateDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.map
-import model.customer.public_interface.ICustomer
-import model.vending_machine.public_interface.IVendingMachine
 import view.buy.BuySceneState
 import view.buy.public_interface.IBuyRouter
 
 class BuyController(
     private val router: IBuyRouter,
-    private val customer: ICustomer,
-    private val vendingMachine: IVendingMachine,
+    private val putMoneyApplicationService: IPutMoneyApplicationService,
+    private val getDepositApplicationService: IGetDepositApplicationService,
+    private val getWalletInfoApplicationService: IGetWalletInfoApplicationService,
     private val intentDispatcher: BuyIntentDispatcher = BuyIntentDispatcher(),
     private val stateDispatcher: BuyStateDispatcher = BuyStateDispatcher()
 ): IController<BuySceneState> {
     private var _sceneState =
         BuySceneState(
-            totalDeposit = vendingMachine.getTotalDeposit(),
-            walletData = customer.getWalletInfo()
+            totalDeposit = getDepositApplicationService.handle().value,
+            walletData = getWalletInfoApplicationService.handle()
         )
     override val sceneState = MutableSharedFlow<BuySceneState>(extraBufferCapacity = 1)
 
@@ -56,14 +58,14 @@ class BuyController(
         }
 
     private fun depositAction(intent: BuyIntent.Deposit): BuyActionResult =
-        customer.putMoney(intent.deposit, vendingMachine).let {
+        putMoneyApplicationService.handle(intent.deposit).let {
             if (it.isError()) {
                 BuyActionResult.Error(it.errorMessage)
             } else {
                 BuyActionResult.Deposit(
                     intent.deposit,
                     it.data!!,
-                    customer.getWalletInfo()
+                    getWalletInfoApplicationService.handle()
                 )
             }
         }

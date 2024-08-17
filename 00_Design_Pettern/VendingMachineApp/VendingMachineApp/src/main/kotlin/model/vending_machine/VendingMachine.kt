@@ -41,8 +41,8 @@ class VendingMachine (
         return CoreResult(deposit.currentDeposit.value)
     }
 
-    override fun getTotalDeposit(): Int {
-        return deposit.currentDeposit.value
+    override fun getTotalDeposit(): DepositAmount {
+        return deposit.currentDeposit
     }
 
     override fun getAllProductInfo(): Map<Product, Boolean> {

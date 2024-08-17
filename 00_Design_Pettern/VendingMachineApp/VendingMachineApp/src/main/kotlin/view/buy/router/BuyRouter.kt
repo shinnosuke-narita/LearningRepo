@@ -1,5 +1,8 @@
 package view.buy.router
 
+import application.customer.GetWalletInfoApplicationService
+import application.vending_machine.deposit.GetDepositApplicationService
+import application.vending_machine.put_money.PutMoneyApplicationService
 import model.navigator.Navigator
 import di.PersonProvider
 import di.VendingMachineProvider
@@ -13,11 +16,25 @@ class BuyRouter : IBuyRouter {
     companion object {
         fun setUpBuyScene(): Scene<*> {
             val router= BuyRouter()
+            val putMoneyApplicationService =
+                PutMoneyApplicationService(
+                    customer = PersonProvider.provide(),
+                    vendingMachine = VendingMachineProvider.provide(),
+                )
+            val getDepositApplicationService =
+                GetDepositApplicationService(
+                    VendingMachineProvider.provide()
+                )
+            val getWalletInfoApplicationService =
+                GetWalletInfoApplicationService(
+                    PersonProvider.provide()
+                )
             val controller =
                 BuyController(
                     router = router,
-                    customer = PersonProvider.provide(),
-                    vendingMachine = VendingMachineProvider.provide(),
+                    putMoneyApplicationService = putMoneyApplicationService,
+                    getDepositApplicationService = getDepositApplicationService,
+                    getWalletInfoApplicationService = getWalletInfoApplicationService
                 )
             val scene = BuyScene(controller)
 
