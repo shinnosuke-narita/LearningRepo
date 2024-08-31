@@ -64,7 +64,7 @@ class BuyController(
             } else {
                 BuyActionResult.Deposit(
                     intent.deposit,
-                    it.data!!,
+                    it.data!!.value,
                     getWalletInfoApplicationService.handle()
                 )
             }

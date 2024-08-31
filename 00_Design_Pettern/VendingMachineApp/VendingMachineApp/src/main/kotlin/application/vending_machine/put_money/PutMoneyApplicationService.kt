@@ -1,23 +1,24 @@
 package application.vending_machine.put_money
 
 import model.customer.public_interface.ICustomer
+import model.deposit.DepositAmount
 import model.money.Money
 import model.result.CoreResult
-import model.vending_machine.public_interface.IVendingMachine
+import model.services.deposit.IDepositService
 
 interface IPutMoneyApplicationService {
-    fun handle(money: Money): CoreResult<Int?>
+    fun handle(money: Money): CoreResult<DepositAmount?>
 }
 
 class PutMoneyApplicationService(
     private val customer: ICustomer,
-    private val vendingMachine: IVendingMachine,
+    private val depositService: IDepositService,
 ) : IPutMoneyApplicationService {
-    override fun handle(money: Money): CoreResult<Int?> =
+    override fun handle(money: Money): CoreResult<DepositAmount?> =
         customer.spendMoney(money).let { result ->
             if (result.isError())
                 CoreResult(null, result.errorMessage)
             else
-                vendingMachine.onPutMoney(money, customer)
+                depositService.handleDeposit(money, customer)
         }
 }

@@ -35,6 +35,18 @@ class Wallet(private val _moneyMap: MutableMap<Money, Int>) : IWallet {
 
     companion object {
         private const val NO_MONEY_MESSAGE = "お財布の中にそのお金はありません"
+
+        fun getInitialWallet(): MutableMap<Money, Int> {
+            return mutableMapOf(
+                Money.Ten to 10,
+                Money.Fifty to 10,
+                Money.OneHundred to 10,
+                Money.FiveHundred to 10,
+                Money.OneThousand to 10,
+                Money.OneThousand to 10,
+                Money.OneThousand to 10
+            )
+        }
     }
 
 }

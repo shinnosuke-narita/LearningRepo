@@ -1,7 +1,8 @@
 package view.home
 
+import application.vending_machine.product.GetProductInfoApplicationService
 import controller.home.HomeController
-import di.VendingMachineProvider
+import di.ServiceLocator
 import model.navigator.Navigator
 import view.base.Scene
 import view.buy.router.BuyRouter
@@ -14,7 +15,7 @@ class HomeRouter : IHomeRouter {
             val controller =
                 HomeController(
                     HomeRouter(),
-                    VendingMachineProvider.provide()
+                    GetProductInfoApplicationService(ServiceLocator.productStock)
                 )
             return HomeScene(controller)
         }

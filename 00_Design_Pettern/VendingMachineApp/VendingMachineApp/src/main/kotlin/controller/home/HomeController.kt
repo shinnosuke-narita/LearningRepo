@@ -1,22 +1,23 @@
 package controller.home
 
+import application.vending_machine.product.IGetProductInfoApplicationService
 import controller.base.IController
 import controller.home.intent.HomeIntent
 import controller.home.intent.HomeIntentDispatcher
-import controller.home.processor.HomeSceneStateDispatcher
 import controller.home.processor.HomeActionResult
-import kotlinx.coroutines.flow.*
-import model.vending_machine.public_interface.IVendingMachine
+import controller.home.processor.HomeSceneStateDispatcher
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.map
 import view.home.HomeSceneState
 import view.home.public_interface.IHomeRouter
 
 class HomeController(
     private val router: IHomeRouter,
-    private val vendingMachine: IVendingMachine,
+    private val applicationService: IGetProductInfoApplicationService,
     private val intentDispatcher: HomeIntentDispatcher = HomeIntentDispatcher(),
     private val sceneStateDispatcher:  HomeSceneStateDispatcher = HomeSceneStateDispatcher()
 ) : IController<HomeSceneState> {
-    private val _currentState = HomeSceneState(productInfo = vendingMachine.getAllProductInfo())
+    private val _currentState = HomeSceneState(productInfo = applicationService.handle())
     override val sceneState = MutableSharedFlow<HomeSceneState>(extraBufferCapacity = 1)
 
     override suspend fun nextAction(input: String) {

@@ -1,7 +1,7 @@
 package model.services.change
 
 import model.money.Money
-import model.money_store.MoneyStore
+import model.money_store.public_interface.IMoneyStore
 
 data class Change(val value: Int) {
     init {
@@ -13,7 +13,7 @@ interface IChangeService {
     fun hasEnoughChange(change: Change): Boolean
 }
 
-class ChangeService(private val moneyStore: MoneyStore) : IChangeService {
+class ChangeService(private val moneyStore: IMoneyStore) : IChangeService {
     override fun hasEnoughChange(change: Change): Boolean {
         var target = change.value
         run loop@ {
